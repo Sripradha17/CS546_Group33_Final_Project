@@ -1,0 +1,19 @@
+{
+  "name": "cs546_group33_final_project",
+  "version": "1.0.0",
+  "description": "CS546_Group33_Final_Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sripradha17/CS546_Group33_Final_Project.git"
+  },
+  "author": "Group_33",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sripradha17/CS546_Group33_Final_Project/issues"
+  },
+  "homepage": "https://github.com/Sripradha17/CS546_Group33_Final_Project#readme"
+}
