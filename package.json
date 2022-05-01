@@ -1,19 +1,18 @@
 {
-  "name": "cs546_group33_final_project",
+  "name": "play-more",
   "version": "1.0.0",
-  "description": "CS546_Group33_Final_Project",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sripradha17/CS546_Group33_Final_Project.git"
-  },
-  "author": "Group_33",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sripradha17/CS546_Group33_Final_Project/issues"
-  },
-  "homepage": "https://github.com/Sripradha17/CS546_Group33_Final_Project#readme"
+  "dependencies": {
+    "express": "^4.18.0",
+    "express-handlebars": "^6.0.5",
+    "faker": "^5.5.3",
+    "mongodb": "^4.5.0"
+  }
 }

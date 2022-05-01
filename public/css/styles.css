@@ -1,0 +1,20 @@
+body {
+    font-family: Verdana, monospace;
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.playgrounds-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+.home-container {
+    margin: 20px 0;
+}
