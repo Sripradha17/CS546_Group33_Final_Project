@@ -5,8 +5,7 @@ const router = Router();
 
 router.post("/event", async (req, res) => {
     try {
-        console.log(req.body);
-        await createHostedGame({ ...req.body });
+        await createHostedGame({ ...req.body, players: req.body.players.map(player => ({ namme: player })) });
         res.redirect("/");
     } catch (error) {
         res.status(500).json({ error: error.message });
