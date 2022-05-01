@@ -2,12 +2,16 @@ const userRoutes = require('./user');
 const hostRoutes = require('./host');
 const session = require('express-session')
 const data = require('../data');
+const playgroundRoutes = require("./playgrounds");
+const eventsRoutes = require("./events");
 const showData = data.user;
 
 const constructorMethod = (app) => {
 
   app.use("/user", userRoutes);
   app.use("/host", hostRoutes);
+  app.use(playgroundRoutes);
+  app.use(eventsRoutes);
 
   const Logging =async (req, res,next) =>  {
     console.log(`[${new Date().toUTCString()}]: ${req.method}\t${req.originalUrl}\t\t${!!req.session.user ? 'Authenticated' : 'Not Authenticated'}`);
