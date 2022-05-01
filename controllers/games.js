@@ -3,7 +3,7 @@ const { host: Host } = require('../config/mongoCollections');
 const getHostedGames = async () => {
     // get random games in limit of 5
     const game_hostedCollection = await Host();
-    const games = await game_hostedCollection.find({}).limit(5).toArray();
+    const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).limit(5).toArray();
     return games;
 }
 
@@ -20,8 +20,19 @@ const getHostedGamesBySearchTerm = async (searchTerm) => {
     return games;
 }
 
+const createHostedGame = async (game) => {
+    const game_hostedCollection = await Host();
+    const newGame = await game_hostedCollection.insertOne({
+        ...game,
+        createdAt: new Date()
+    });
+    if (newGame.insertedCount === 0) throw "Could not create game";
+    return newGame;
+}
+
 module.exports = {
     getHostedGames,
     getHostedGameById,
-    getHostedGamesBySearchTerm
+    getHostedGamesBySearchTerm,
+    createHostedGame
 }
