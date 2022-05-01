@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb")
-const { comments: Comments } = require('../config/mongoCollections');
+const { comment: Comments } = require('../config/mongoCollections');
 
 const getCommentsByPlaygroundId = async (playgroundId) => {
     const commentsCollection = await Comments();
