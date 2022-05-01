@@ -14,8 +14,12 @@ const getCollectionFn = (collection) => {
 };
 
 module.exports = {
-  users: getCollectionFn("users"),
-  playgrounds: getCollectionFn("playgrounds"),
-  game_hosted: getCollectionFn("game_hosted"),
-  comments: getCollectionFn("comments"),
+  user: getCollectionFn('user'),
+  playground: getCollectionFn('playground'),
+  game: getCollectionFn('game'),
+  host: getCollectionFn('host'),
+  players: getCollectionFn('players'),
+  review: getCollectionFn('review'),
+  comment: getCollectionFn('comment'),
+  quiz:getCollectionFn('quiz')
 };
