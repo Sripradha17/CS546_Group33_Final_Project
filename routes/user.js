@@ -20,7 +20,10 @@ router.get('/login', async (req, res) => {
 router.get('/private', async (req, res, next) => {
 
     try {
-        res.render('private', { title: "Information", user: req.session.user,userLoggedIn: true })
+        res.render('private', {
+            title: "Information", user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        })
     } catch (error) {
         res.sendStatus(500);
     }
@@ -46,7 +49,7 @@ router.post('/login', async (req, res) => {
             res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
         }
     } catch (e) {
-        
+
         res.status(400);
         res.render('login', { error: e });
     }
@@ -65,9 +68,9 @@ router.post('/signup', async (req, res) => {
         const password = req.body['password'];
         const confirm_password = req.body['confirm_password'];
 
-        let userInfo = await showData.createUser(firstname,lastname,username,email, password,confirm_password);
+        let userInfo = await showData.createUser(firstname, lastname, username, email, password, confirm_password);
 
-    
+
         if (userInfo.userInserted) {
             res.redirect('/')
         } else {
