@@ -1,4 +1,4 @@
-const { createHostedGame } = require("../data/host");
+const { createHostedGame, getAllHostedGames } = require("../data/hosted_game");
 const { Router } = require("express");
 
 const router = Router();
@@ -15,9 +15,19 @@ router.post("/event", async (req, res) => {
     }
 })
 
-router.get("/sport-event", async (req, res) => {
+router.get("/create-sport-event", async (req, res) => {
     try {
         res.render("sport-event", { title: "Sport Event", user: req.session.user, userLoggedIn: req.session.user ? true : false });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
+router.get("/sport-event", async (req, res) => {
+    try {
+        const events = await getAllHostedGames();
+
+        res.render("sportevents", { title: "Sport Events", user: req.session.user, userLoggedIn: req.session.user ? true : false, events });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
