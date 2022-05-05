@@ -1,5 +1,5 @@
 const Playgrounds = require('../data/playgrounds');
-const Host = require('../data/host');
+const Host = require('../data/hosted_game');
 const Comments = require('../data/comments');
 const { Router } = require("express");
 

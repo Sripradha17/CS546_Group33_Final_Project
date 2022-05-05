@@ -1,9 +1,9 @@
-const { host: Host, playground: Playground } = require("./mongoCollections");
+const { hosted_game: HostedGame, playground: Playground } = require("./mongoCollections");
 const faker = require("faker");
 
 exports.createTextIndexes = async () => {
     const playgroundCollection = await Playground();
-    const game_hostedCollection = await Host();
+    const game_hostedCollection = await HostedGame();
 
     await playgroundCollection.createIndex({
         playgroundName: "text",
@@ -19,7 +19,7 @@ exports.createTextIndexes = async () => {
 
 exports.createFakeData = async () => {
     const playgroundCollection = await Playground();
-    const game_hostedCollection = await Host();
+    const game_hostedCollection = await HostedGame();
 
     const game_hosted = new Array(10).fill(0).map(() => ({
         playgroundName: faker.lorem.word(),
