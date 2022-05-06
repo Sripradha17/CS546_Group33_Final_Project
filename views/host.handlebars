@@ -1,0 +1,100 @@
+<section class="vh-100">
+  <div class="container-fluid">
+    <div class="me-mb-3">
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Create Host
+      </button>
+    </div>
+    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">List of Hosting</h5>
+
+    <section id="playgrounds" class="my-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center">Playgrounds</h1>
+      </div>
+    </div>
+    <div class="row">
+      {{#if playgrounds.length}}
+      {{#each playgrounds}}
+      <div class="col-md-4 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <img src="{{image}}" class="card-img-top" alt="...">
+            <h5 class="card-title">{{this.playgroundName}}</h5>
+            <p class="card-text">{{this.location}}</p>
+            <a href="/playground/{{this._id}}" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="col-md-12">
+        <h6 class="text-center">No playground found</h6>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create Host</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form style="width: 23rem;" id="host-form" method="POST" action="/host">
+
+              <div class="form-group">
+                <label class="form-label" for="form2Example18">Sports Name</label>
+                <input type="text" id="sportname" name="sportname" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form2Example18">Adress</label>
+                <input type="text" id="adress" name="adress" class="form-control" />
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="form-label" for="start">Select date:</label>
+                  <input type="date" id="date" name="date" class="form-control" value="2022-05-2" min="2022-05-2"
+                    max="2024-12-31">
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label class="form-label" for="form2Example18">Select Slot</label>
+                  <input type="number" id="slot" name="slot" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Detail</label>
+                <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
+              </div>
+
+            </form>
+            <div class="error-container">
+              {{#if error}}
+              <h4>{{error}}</h4>
+              {{/if}}
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="host-button" type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

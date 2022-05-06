@@ -1,21 +1,104 @@
-<div class="main-block">
-    <h1>Login</h1>
-    <form id="login-form" method="POST" action="/user/login" class="new-post-form">
-        <label for="username">Username</label>
-        <input id="username" type="text" name="username" placeholder="Enter Username" class="full-width-input" />
+<section class="vh-100">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 text-black">
 
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" placeholder="Enter Password" class="full-width-input" />
+        <div class="px-5 ms-xl-4">
+          <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #8e9baf;"></i>
 
-        <button id="login-button" type="submit">Login</button>
-    </form>
+        </div>
 
-    <div class="error-container">
+        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+          <form style="width: 23rem;" id="login-form" method="POST" action="/user/login">
+
+            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
+
+            <div class="form-outline mb-4">
+              <input type="username" id="username" name="username" class="form-control form-control-lg" />
+              <label class="form-label" for="form2Example18">Email address</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="password" id="password" name="password" class="form-control form-control-lg" />
+              <label class="form-label" for="form2Example28">Password</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="loginradio" id="user" value="user" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                User
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="loginradio" id="host" value="host">
+              <label class="form-check-label" for="exampleRadios2">
+                Host
+              </label>
+            </div>
+
+            <div class="pt-1 mb-4">
+              {{!-- <button class="btn btn-info btn-lg btn-block" type="button">Login</button> --}}
+              <button id="login-button" class="btn btn-primary" onclick="displayRadioValue()"type="submit">Login</button>
+            </div>
+
+            <p>Don't have an account? <a href="/user/signup" class="link-info">Register here</a></p>
+
+          </form>
+
+        </div>
+
+      </div>
+      <div class="col-sm-6 px-0 d-none d-sm-block">
+        <img href="/public/images/image1.jpg" alt="Login image" class="w-100 vh-100"
+          style="object-fit: cover; object-position: left;">
+      </div>
+      <div class="error-container">
         {{#if error}}
         <h4>{{error}}</h4>
         {{/if}}
+      </div>
     </div>
+  </div>
+</section>
 
-    <a href="/user/signup">Need to register? Click here to sign-up</a>
 
-</div>
+    <script>
+        function displayRadioValue() {
+            document.getElementById("result").innerHTML = "";
+            var ele = document.getElementsByTagName('input');
+              
+            for(i = 0; i < ele.length; i++) {
+                  
+                if(ele[i].type="radio") {
+                  
+                    if(ele[i].checked)
+                        document.getElementById("result").innerHTML
+                                += ele[i].name + " Value: "
+                                + ele[i].value + "<br>";
+                }
+            }
+        }
+    </script>
+{{!-- <div class="main-block">
+  <h1>Login</h1>
+  <form id="login-form" method="POST" action="/user/login" class="new-post-form">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" placeholder="Enter Username" class="full-width-input" />
+
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" placeholder="Enter Password" class="full-width-input" />
+
+    <button id="login-button" type="submit">Login</button>
+  </form>
+
+  <div class="error-container">
+    {{#if error}}
+    <h4>{{error}}</h4>
+    {{/if}}
+  </div> --}}
+
+
+
+  {{!--
+</div> --}}

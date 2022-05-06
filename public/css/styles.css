@@ -18,3 +18,14 @@ body {
 .home-container {
     margin: 20px 0;
 }
+
+/* home page */
+.filter-search{
+ margin-left: 15px;
+}
+
+.card{
+    margin : 5px !important;
+    width: 400px !important;
+    height: 425px !important;
+}
