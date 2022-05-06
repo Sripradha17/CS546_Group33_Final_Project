@@ -13,6 +13,11 @@
                                 <p class="card-text">Location: {{playground.location}}</p>
                                 <p class="card-text">Time: {{playground.schedule}}</p>
                                 <p class="card-text">Size: {{playground.playgroundSize}}</p>
+                                <p class="card-text">Amenities:
+                                    {{#each playground.amenities}}
+                                    <span class="badge bg-info">{{this}}</span>
+                                    {{/each}}
+                                </p>
                                 <a href="/playground/{{playground._id}}" class="btn btn-primary"
                                     aria-disabled="true">Join</a>
 
