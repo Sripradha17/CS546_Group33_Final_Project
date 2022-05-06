@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const showData = data.user;
+const hostData = data.host;
 
 
 router.get('/login', async (req, res) => {
@@ -15,15 +16,23 @@ router.get('/login', async (req, res) => {
         res.sendStatus(500);
     }
 });
+router.get('/profile', async (req, res) => {
+    try {
+        if (!!req.session.user) {
+            res.redirect('/user/private')
+        } else {
+            res.render('profile', { title: "Profile" })
+        }
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
 
 
 router.get('/private', async (req, res, next) => {
 
     try {
-        res.render('private', {
-            title: "Information", user: req.session.user,
-            userLoggedIn: req.session.user ? true : false
-        })
+        res.render('private', { title: "Information", userLoggedIn: true })
     } catch (error) {
         res.sendStatus(500);
     }
@@ -35,10 +44,29 @@ router.post('/login', async (req, res) => {
         if (!!req.session.user) {
             res.redirect('/user/private')
         }
+
+        let user = req.body.loginradio;
+        // let host = req.body['loginradio'];
+
+
+
         const username = req.body['username'];
         const password = req.body['password'];
 
-        let userInfo = await showData.checkUser(username, password);
+        let userInfo;
+        if (username == "admin") {
+            res.redirect('/user/private')
+            
+        } else {
+            if (user == "user") {
+                userInfo = await showData.checkUser(username, password);
+            }
+            else {
+                userInfo = await hostData.checkUser(username, password);
+            }
+        }
+
+
 
 
         if (userInfo.authenticated) {
@@ -68,8 +96,18 @@ router.post('/signup', async (req, res) => {
         const password = req.body['password'];
         const confirm_password = req.body['confirm_password'];
 
-        let userInfo = await showData.createUser(firstname, lastname, username, email, password, confirm_password);
+        let user = req.body.loginradio;
 
+        console.log(user)
+        let userInfo;
+        if (user == "host") {
+            userInfo = await hostData.createHostUser(firstname, lastname, username, email, password, confirm_password);
+
+        }
+        else {
+            userInfo = await showData.createUser(firstname, lastname, username, email, password, confirm_password);
+
+        }
 
         if (userInfo.userInserted) {
             res.redirect('/')
