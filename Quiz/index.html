@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="styles.css" rel="stylesheet">
-    <script defer src="script.js"></script>
-    <title>Quiz App</title>
+    <title>Quiz</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script src="main.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div id="question-container" class="hide">
-            <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
-        </div>
-        <div class="controls">
-            <button id="start-btn" class="start-btn btn">Start</button>
-            <button id="next-btn" class="next-btn btn hide">Next</button>
-        </div>
+    <h1>Sports Trivia</h1>
+    <form id="quiz" name="quiz">
+        <p class="questions">The Olympics are held every how many years?</p>
+        <input type="radio" id="mc" name="question1" value="4 years"> 4 years<br>
+        <input type="radio" id="mc" name="question1" value="10 years"> 10 years<br>
+        <p class="questions">How many medals did China win at the Beijing Olympics?</p>
+        <input type="radio" id="mc" name="question2" value="100"> 100<br>
+        <input type="radio" id="mc" name="question2" value="70"> 70<br>
+        <p class="questions">Which boxer fought against Muhammad Ali and won?</p>
+        <input type="radio" id="mc" name="question3" value="Joe Frazier"> Joe Frazier<br>
+        <input type="radio" id="mc" name="question3" value="Mike Tyson"> Mike Tyson<br>
+        <input id="button" type="button" value="Submit" onclick="check();">
+    </form>
+    <div id="after_submit">
+        <p id="number_correct"></p>
+        <p id="message"></p>
     </div>
 </body>
 
 </html>
+
+
