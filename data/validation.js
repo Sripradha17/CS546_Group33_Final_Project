@@ -26,6 +26,15 @@ module.exports = {
     return strVal;
   },
 
+  checkArray(arr, varName) {
+    if (!arr) throw `Error: You must supply a ${varName}!`;
+    if (!Array.isArray(arr)) throw `Error: ${varName} must be a string!`;
+    if (arr.length === 0)
+      throw `Error: ${varName} cannot be an empty`;
+
+    return arr;
+  },
+  
   checkPassword(strVal, varName) {
     if (!strVal) throw `Error: You must supply a ${varName}!`;
     if (typeof strVal !== 'string') throw `Error: ${varName} must be a string!`;

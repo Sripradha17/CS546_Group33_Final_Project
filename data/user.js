@@ -20,7 +20,7 @@ let exportedMethods = {
         password = validation.checkPassword(password, 'Password');
         confirm_password = validation.checkPassword(confirm_password, 'Confirm Password');
 
-        if(password !== confirm_password){
+        if (password !== confirm_password) {
             throw "Your password not match!"
         }
 
@@ -47,7 +47,6 @@ let exportedMethods = {
         const newId = insertInfo.insertedId.toString();
         // const data = await this.get(newId);
 
-        console.log("hhhh")
         return { userInserted: true };
     },
     async checkUser(username, password) {

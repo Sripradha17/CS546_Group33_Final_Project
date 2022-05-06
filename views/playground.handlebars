@@ -1,83 +1,64 @@
-<section id="playground-container" class="my-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <img src="{{playground.image}}" class="img-fluid rounded" alt="...">
-                            </div>
-                            <div class="col-md-8 col-sm-12 align-self-end">
-                                <h5 class="card-title">{{playground.playgroundName}}</h5>
-                                <p class="card-text">Location: {{playground.location}}</p>
-                                <p class="card-text">Time: {{playground.schedule}}</p>
-                                <p class="card-text">Size: {{playground.playgroundSize}}</p>
-                                <p class="card-text">Amenities:
-                                    {{#each playground.amenities}}
-                                    <span class="badge bg-info">{{this}}</span>
-                                    {{/each}}
-                                </p>
-                                <a href="/playground/{{playground._id}}" class="btn btn-primary"
-                                    aria-disabled="true">Join</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section id="filter-container" class="px-5 py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h6>Filter</h6>
+      </div>
+      <form action="/filter" method="get" class="d-flex">
+        <div class="col-md-2 me-auto">
+          <div class="form-group">
+            <input type="date" name="date" id="date" class="form-control" value="{{#if date}}{{date}}{{/if}}">
+            <input type="hidden" name="search" value="{{#if searchTerm}}{{searchTerm}}{{/if}}">
+          </div>
         </div>
+        <div>
+          <a role="button" href="/" class="btn">clear</a>
+          <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+      </form>
     </div>
 </section>
 
-<section id="playground-comments">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="text-center">Comments</h3>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/playground/{{playground._id}}/comment" method="POST">
-                            <div class="form-group">
-                                <label for="comment">Comment</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <ul class="list-group">
-                            {{#each comments}}
-                            <li class="list-group-item d-flex align-items-baseline justify-content-between">
-                                <p class="card-text">{{this.comment}}</p>
-                                <div class="align-items-baseline d-flex">
-                                    <span class="align-items-baseline d-flex">
-                                        {{this.likes}}
-                                        <a href="/playground/{{this.playgroundId}}/comment/{{this._id}}/like"
-                                            class="btn"><i class="fa-solid fa-thumbs-up"></i></a>
-                                    </span>
-                                    <span class="align-items-baseline d-flex">
-                                        {{this.dislikes}}
-                                        <a href="/playground/{{this.playgroundId}}/comment/{{this._id}}/dislike"
-                                            class="btn"><i class="fa-solid fa-thumbs-down"></i></a>
-                                    </span>
-                                </div>
-                            </li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section>
+  <div>
+    <button class="btn btn-primary"><a href="/playground/add" style="color: black;text-decoration:none">Add
+        Playground</a></button>
+  </div>
+</section>
+
+<section id="playgrounds" class="my-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center">Playgrounds</h1>
+      </div>
     </div>
+    <div class="row">
+      {{#if playgrounds.length}}
+      {{#each playgrounds}}
+      <div class="col-md-4 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <img src="{{this.image}}" class="card-img-top" alt="...">
+            <h5 class="card-title">{{this.playgroundName}}{{this.image}}</h5>
+            <p class="card-text">{{this.location}}</p>
+            <a href="/playground/{{this._id}}" class="btn btn-primary">View</a>
+            {{!-- {{#if userLoggedIn}} --}}
+            <a href="/playground/{{this._id}}/edit" class="btn btn-primary" aria-disabled="true">Edit</a>
+            {{!-- <a class="btn btn-primary" href="/playground/{{this._id}}/delete" aria-disabled="true">Delete</a> --}}
+            <form method="POST" action="/playground/{{this._id}}/delete" class="new-post-form">
+              <button id="delete-button" type="submit">Delete</button>
+            </form>
+            {{!-- {{/if}} --}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="col-md-12">
+        <h6 class="text-center">No playground found</h6>
+      </div>
+      {{/if}}
+    </div>
+  </div>
 </section>
