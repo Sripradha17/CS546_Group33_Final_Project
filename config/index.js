@@ -38,7 +38,7 @@ exports.createFakeData = async () => {
         playgroundName: faker.lorem.word(),
         schedule: faker.date.future(),
         amenities: new Array(5).fill(0).map(() => faker.lorem.word()),
-        playgroundize: faker.datatype.number(),
+        playgroundSize: faker.datatype.number(),
         location: faker.address.city(),
         image: faker.image.imageUrl(),
     }))

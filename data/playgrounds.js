@@ -25,6 +25,28 @@ const searchPlaygrounds = async (params) => {
             $lte: new Date(year, month, day + 2)
         }
     }
+
+    if (params?.minPlaygroundSize) {
+        filter.playgroundSize = { $gte: Number(params.minPlaygroundSize) };
+    }
+
+    if (params?.maxPlaygroundSize) {
+        filter.playgroundSize = { $lte: Number(params.maxPlaygroundSize) };
+    }
+
+    if(params?.maxPlaygroundSize && params?.minPlaygroundSize) {
+        filter.playgroundSize = { $gte: Number(params.minPlaygroundSize), $lte: Number(params.maxPlaygroundSize) };
+    }
+
+    if (params?.amenities) {
+        const regex = new RegExp(params.amenities, "i");
+        filter.amenities = { 
+            $elemMatch: {
+                $regex: regex,
+            }
+        };
+    }
+
     const playgrounds = await playgroundsCollection.find(filter).toArray();
     return playgrounds;
 }
