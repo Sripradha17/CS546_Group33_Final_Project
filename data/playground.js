@@ -88,6 +88,7 @@ let exportedMethods = {
 
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete Band with id of ${pId}`;
+
         }
         const output = band.name + " has been successfully deleted!";
 

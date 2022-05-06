@@ -161,7 +161,6 @@ var storage = multer.diskStorage({
     }
 });
 
-
 router.get("/filter", async (req, res) => {
     try {
         const date = req.query.date;
@@ -169,6 +168,7 @@ router.get("/filter", async (req, res) => {
         const minPlaygroundSize = req.query.minPlaygroundSize;
         const maxPlaygroundSize = req.query.maxPlaygroundSize;
         const amenities = req.query.amenities;
+
 
         const playgrounds = await search.filterPlaygrounds({ searchTerm, date, minPlaygroundSize, maxPlaygroundSize, amenities });
         const hostedGames = await HostedGame.getHostedGames();
@@ -186,7 +186,6 @@ router.get("/filter", async (req, res) => {
             userLoggedIn: req.session.user ? true : false
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: error.message });
     }
 })
@@ -242,6 +241,5 @@ router.get("/playground/:id/comment/:commentId/dislike", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 module.exports = router;
