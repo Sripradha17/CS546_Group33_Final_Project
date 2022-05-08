@@ -1,6 +1,5 @@
 const playground = require("../data/playground");
 const search = require("../data/search");
-
 const HostedGame = require("../data/host");
 const Comments = require("../data/comment");
 const { Router } = require("express");
@@ -76,9 +75,6 @@ router.post('/playground/add', upload.single('image'), async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
 });
 
 router.get("/playground/:id/edit", async (req, res) => {
