@@ -1,4 +1,4 @@
-{{> playgroundSearch}}
+
 
 {{#if userLoggedIn}}
 <section>
@@ -26,15 +26,15 @@
             <h5 class="card-title">{{this.playgroundName}}{{this.image}}</h5>
             <p class="card-text">{{this.location}}</p>
             <a href="/playground/{{this._id}}" class="btn btn-primary">View</a>
-            {{#if ../userLoggedIn}}
-            <a href="host/playground/{{this._id}}/edit" class="btn btn-primary" aria-disabled="true">Edit</a>
+            {{!-- {{#if ../userLoggedIn}} --}}
+            <a href="/playground/{{this._id}}/edit" class="btn btn-primary" aria-disabled="true">Edit</a>
             
             {{!-- <a class="btn btn-primary" href="/playground/{{this._id}}/delete" aria-disabled="true">Delete</a> --}}
             
             <form method="POST" action="/playground/{{this._id}}/delete" class="new-post-form">
               <button id="delete-button" type="submit">Delete</button>
             </form>
-            {{/if}}
+            {{!-- {{/if}} --}}
           </div>
         </div>
       </div>

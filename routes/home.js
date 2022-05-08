@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     const playgrounds = await search.filterPlaygrounds();
     const hostedGames = await Host.getHostedGames();
 
-    res.render("home", {
+    res.render("home2", {
       playgrounds: playgrounds,
       sportWatchingEvents: hostedGames,
       title: "Play More",

@@ -44,7 +44,7 @@ router.get('/profile', async (req, res) => {
 router.get('/private', async (req, res, next) => {
 
     try {
-        res.render('home', { title: "PlayMore", userLoggedIn: true })
+        res.render('private', { title: "PlayMore", userLoggedIn: true, user: req.session.user })
     } catch (error) {
         res.sendStatus(500);
     }
@@ -57,6 +57,8 @@ router.post('/login', async (req, res) => {
             res.redirect('/user/private')
         }
 
+
+
         let user = req.body.loginradio;
         // let host = req.body['loginradio'];
 
@@ -66,17 +68,34 @@ router.post('/login', async (req, res) => {
         const password = req.body['password'];
 
         let userInfo;
+        // const hostcheck = false;
+        // const usercheck = false;
+        // const checkUser = "admin";
         if (user == "user") {
             userInfo = await showData.checkUser(username, password);
+            checkUser = "user";
+            // usercheck = true
+            // hostcheck = false
+            // status = false
         }
         else {
+            // checkUser = "host";
+            // usercheck = false
+            // hostcheck = true
+            // status = false
             userInfo = await hostData.checkUser(username, password);
         }
 
         console.log(userInfo.userId)
         if (userInfo.authenticated) {
+
             req.session.user = { username: username };
             req.session.userID = { userId: userInfo.userId };
+            if (user.username == "admin") {
+                res.redirect('/playground')
+            }
+
+            // req.session.status = { data:  checkUser};
             res.redirect('/user/private')
         } else {
             res.status(400);

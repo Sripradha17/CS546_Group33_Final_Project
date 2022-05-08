@@ -52,15 +52,13 @@ let exportedMethods = {
 
     async remove(pId) {
         pId = validation.checkId(pId)
-        // const playgrounds = await this.getPlaygroundById(pId);
-        // console.log(playgrounds)
         const playgroundCollection = await playground();
         const deletionInfo = await playgroundCollection.deleteOne({ _id: ObjectId(pId) });
 
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete Band with id of ${pId}`;
         }
-        const output = band.name + " has been successfully deleted!";
+        const output = " has been successfully deleted!";
 
         return output;
 
@@ -84,8 +82,7 @@ let exportedMethods = {
             amenities: amenities,
             playgroundSize: playgroundSize,
             playgroundSize: playgroundSize,
-            location: location,
-            images: doc.images
+            location: location
         };
         console.log(updated)
         let parsedId = ObjectId(id);
