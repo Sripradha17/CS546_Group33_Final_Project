@@ -88,6 +88,15 @@ let exportedMethods = {
 
         user._id = user._id.toString();
         return user;
+    },
+    async getUserByUsername(username) {
+            
+            username = validation.checkString(username, 'Username');
+            const usersCollection = await user();
+            const userDoc = await usersCollection.findOne({ username: username });
+            if (userDoc === null) throw 'No bands with that id';
+            userDoc._id = userDoc._id.toString();
+            return userDoc;
     }
 
 };
