@@ -2,25 +2,13 @@ const playground = require('../data/playground');
 const search = require('../data/search');
 
 const host = require('../data/host');
-// const Comments = require('../data/comments');
+const Comments = require('../data/comment');
 const { Router } = require("express");
 const validation = require('../data/validation');
 var fs = require('fs');
 var path = require('path');
 const router = Router();
-var multer = require('multer');
 
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-
-var upload = multer({ storage: storage });
 
 //route on click or select of playground
 router.get("/playground", async (req, res) => {
@@ -53,13 +41,28 @@ router.get("/playground/add", async (req, res) => {
     }
 });
 
+var multer = require('multer');
+
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now()+'.jpg')
+    }
+});
+
+var upload = multer({ storage: storage });
+
 router.post('/playground/add', upload.single('image'), async (req, res) => {
     const playgroundName = validation.checkString(req.body.playgroundName, "Playground name");
     const schedule = validation.checkString(req.body.schedule, "Schedule");
     const playgroundSize = validation.checkString(req.body.playgroundSize, "Playground size");
     const location = validation.checkString(req.body.location, "Location");
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
-    const imageData = fs.readFileSync(path.join(__dirname, '..', 'public/images', req.file.filename));
+    console.log("hhhh")
+    const imageData = '../public/images/'+ req.file.filename;
     console.log(imageData)
 
     try {
@@ -112,10 +115,13 @@ router.post("/playground/:id/edit", async (req, res) => {
 router.get("/playground/:id", async (req, res) => {
     try {
         const playgrounds = await playground.getPlaygroundById(req.params.id);
-        //   const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
+         const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
+        console.log(playgrounds);
+        console.log(req.session.user);
         res.render("viewplayground", {
             playgrounds, title: playgrounds.playgroundName, user: req.session.user,
-            userLoggedIn: req.session.user ? true : false
+            userLoggedIn: req.session.user ? true : false,
+            comments
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
