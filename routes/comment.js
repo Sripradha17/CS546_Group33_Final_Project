@@ -88,7 +88,9 @@ router.get('/:playgroundId/:commentId/delete', async (req, res) => {
 	} catch (e) {
 		res.status(500).json({ error: e });
 	}
-});
+}
+
+);
 
 
 module.exports = router;
