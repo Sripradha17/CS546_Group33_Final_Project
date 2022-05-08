@@ -158,6 +158,42 @@ let exportedMethods = {
         }
 
         return playgroundList;
+    },
+    async getHostedGames  ()  {
+        // get random games in limit of 5
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).limit(5).toArray();
+        return games;
+    }
+    ,
+    async getAllHostedGames  ()  {
+        // get random games in limit of 5
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).toArray();
+        return games;
+    }
+    ,
+    async getHostedGameById  (id)  {
+        const game_hostedCollection = await host();
+        const game = await game_hostedCollection.findOne({ _id: id });
+        if (game === null) throw "Game not found";
+        return game;
+    }
+    ,
+    async getHostedGamesBySearchTerm  (searchTerm)  {
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({ $text: { $search: searchTerm } }).toArray();
+        return games;
+    }
+    ,
+    async createHostedGame  (game)  {
+        const game_hostedCollection = await host();
+        const newGame = await game_hostedCollection.insertOne({
+            ...game,
+            createdAt: new Date()
+        });
+        if (newGame.insertedCount === 0) throw "Could not create game";
+        return newGame;
     }
 
 };

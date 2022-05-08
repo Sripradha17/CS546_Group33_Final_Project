@@ -1,5 +1,5 @@
 const search = require("../data/search");
-const Host = require("../data/hosted_game");
+const Host = require("../data/host");
 const { Router } = require("express");
 const router = Router();
 

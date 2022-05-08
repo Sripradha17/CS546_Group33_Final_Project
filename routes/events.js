@@ -1,4 +1,4 @@
-const { createHostedGame, getAllHostedGames } = require("../data/hosted_game");
+const { createHostedGame, getAllHostedGames } = require("../data/host");
 const { Router } = require("express");
 
 const router = Router();
