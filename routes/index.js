@@ -8,7 +8,7 @@ const quizRoute = require('./quiz')
 const session = require('express-session')
 const data = require('../data');
 const playgroundRoutes = require("./playground");
-// const eventsRoutes = require("./events");
+const eventsRoutes = require("./events");
 const showData = data.user;
 
 const constructorMethod = (app) => {
@@ -17,10 +17,10 @@ const constructorMethod = (app) => {
   app.use("/user", userRoutes);
   app.use("/host", hostRoutes);
   app.use("/join", joinRoutes);
+   app.use("/quiz", quizRoute);
   app.use("/", playgroundRoutes);
+  app.use(eventsRoutes);
   app.use("/comment", commentRoute);
-  app.use("/quiz", quizRoute);
-  //   app.use(eventsRoutes);
 
   const Logging = async (req, res, next) => {
     console.log(`[${new Date().toUTCString()}]: ${req.method}\t${req.originalUrl}\t\t${!!req.session.user ? 'Authenticated' : 'Not Authenticated'}`);
