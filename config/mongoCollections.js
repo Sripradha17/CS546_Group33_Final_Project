@@ -22,5 +22,4 @@ module.exports = {
   review: getCollectionFn('review'),
   comment: getCollectionFn('comment'),
   quiz:getCollectionFn('quiz'),
-  hosted_game: getCollectionFn('hosted_game'),
 };

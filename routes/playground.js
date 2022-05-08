@@ -1,7 +1,7 @@
 const playground = require("../data/playground");
 const search = require("../data/search");
 
-const HostedGame = require("../data/hosted_game");
+const HostedGame = require("../data/host");
 const Comments = require("../data/comment");
 const { Router } = require("express");
 const validation = require("../data/validation");
