@@ -3,19 +3,23 @@ const { comment: Comments } = require('../config/mongoCollections');
 
 const getCommentsByPlaygroundId = async (playgroundId) => {
     const commentsCollection = await Comments();
-    const comments = await commentsCollection.find({ playgroundId: playgroundId }).sort({ createdAt: -1 }).toArray();
+    const comments = await commentsCollection.find({ playgroundId: playgroundId }).sort({ likes: -1 }).toArray();
     return comments;
 }
 
-const addComment = async (comment, playgroundId) => {
+const addComment = async (userId, playgroundId, comment) => {
     const commentsCollection = await Comments();
     const newComment = await commentsCollection.insertOne({
-        comment: comment,
-        playgroundId: playgroundId,
+        comment,
+        playgroundId,
+        userId,
+        likes: 0,
+        dislikes:0,
         createdAt: new Date(),
     });
     if (newComment.insertedCount === 0) throw "Could not add comment";
-    return newComment;
+    const comments = await commentsCollection.find({ playgroundId: playgroundId }).sort({ likes: -1 }).toArray();
+    return comments;
 }
 
 const likeComment = async (commentId) => {
