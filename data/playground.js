@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const { playground: Playground, playground } = require("../config/mongoCollections")
+const { playground: Playground, playground } = require('../config/mongoCollections');
 const validation = require('./validation');
 
 let exportedMethods = {
@@ -27,7 +27,7 @@ let exportedMethods = {
             location: location,
             image: imageData
 
-
+        }
         const playGroundExists = await playgroundsCollection.findOne({ playgroundName: playgroundName });
         if (playGroundExists) throw "There is already a user with that username";
 
