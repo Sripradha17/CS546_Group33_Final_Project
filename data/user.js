@@ -42,7 +42,7 @@ let exportedMethods = {
 
         const insertInfo = await usersCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not add user';
 
         const newId = insertInfo.insertedId.toString();
         // const data = await this.get(newId);

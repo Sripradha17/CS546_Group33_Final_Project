@@ -1,4 +1,5 @@
-const { hosted_game: HostedGame } = require('../config/mongoCollections');
+const host = mongoCollections.host;
+
 
 const getHostedGames = async () => {
     // get random games in limit of 5

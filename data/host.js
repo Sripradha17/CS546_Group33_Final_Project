@@ -42,7 +42,7 @@ let exportedMethods = {
 
         const insertInfo = await usersCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not add host';
 
         const newId = insertInfo.insertedId.toString();
         // const data = await this.get(newId);
@@ -81,7 +81,7 @@ let exportedMethods = {
 
         const insertInfo = await hostCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not add host';
 
         const newId = insertInfo.insertedId.toString();
         return { userInserted: true };
