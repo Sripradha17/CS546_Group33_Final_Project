@@ -3,6 +3,7 @@ const adminRoutes = require('./admin');
 const userRoutes = require('./user');
 const hostRoutes = require('./host');
 const joinRoutes = require('./join');
+const commentRoute = require('./comment')
 const session = require('express-session')
 const data = require('../data');
 const playgroundRoutes = require("./playground");
@@ -16,6 +17,7 @@ const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
   app.use("/join", joinRoutes);
   app.use("/", playgroundRoutes);
+  app.use("/comment", commentRoute);
   //   app.use(eventsRoutes);
 
   const Logging = async (req, res, next) => {

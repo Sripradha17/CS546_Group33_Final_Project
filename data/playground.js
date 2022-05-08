@@ -25,7 +25,7 @@ let exportedMethods = {
             amenities: amenities,
             playgroundSize: playgroundSize,
             location: location,
-            image: imageData.path
+            image: imageData
         };
 
         const playGroundExists = await playgroundsCollection.findOne({ playgroundName: playgroundName });
