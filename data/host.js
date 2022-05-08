@@ -1,3 +1,4 @@
+const { host: Host } = require('../config/mongoCollections');
 const mongoCollections = require('../config/mongoCollections');
 const host = mongoCollections.host;
 const playground = mongoCollections.playground;
@@ -6,10 +7,27 @@ const validation = require('./validation');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
+const getHostedGames = async () => {
+    // get random games in limit of 5
+    const game_hostedCollection = await Host();
+    const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).limit(5).toArray();
+    return games;
+}
 
+const getHostedGameById = async (id) => {
+    const game_hostedCollection = await Host();
+    const game = await game_hostedCollection.findOne({ _id: id });
+    if (game === null) throw "Game not found";
+    return game;
+}
 let exportedMethods = {
     async createHostUser(firstname, lastname, username, email, password, confirm_password) {
 
+const getHostedGamesBySearchTerm = async (searchTerm) => {
+    const game_hostedCollection = await Host();
+    const games = await game_hostedCollection.find({ $text: { $search: searchTerm } }).toArray();
+    return games;
+}
         firstname = validation.checkString(firstname, 'First Name');
         lastname = validation.checkString(lastname, 'Last Name');
         username = validation.checkString(username, 'Username');
@@ -20,9 +38,59 @@ let exportedMethods = {
         password = validation.checkPassword(password, 'Password');
         confirm_password = validation.checkPassword(confirm_password, 'Confirm Password');
 
+const createHostedGame = async (game) => {
+    const game_hostedCollection = await Host();
+    const newGame = await game_hostedCollection.insertOne({
+        ...game,
+        createdAt: new Date()
+    });
+    if (newGame.insertedCount === 0) throw "Could not create game";
+    return newGame;
+}
         if(password !== confirm_password){
             throw "Your password not match!"
         }
+
+module.exports = {
+    getHostedGames,
+    getHostedGameById,
+    getHostedGamesBySearchTerm,
+    createHostedGame
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         const usersCollection = await host();
 
@@ -42,7 +110,7 @@ let exportedMethods = {
 
         const insertInfo = await usersCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not add host';
 
         const newId = insertInfo.insertedId.toString();
         // const data = await this.get(newId);
@@ -81,7 +149,7 @@ let exportedMethods = {
 
         const insertInfo = await hostCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not add host';
 
         const newId = insertInfo.insertedId.toString();
         return { userInserted: true };
@@ -158,8 +226,52 @@ let exportedMethods = {
         }
 
         return playgroundList;
+    },
+    async getHostedGames  ()  {
+        // get random games in limit of 5
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).limit(5).toArray();
+        return games;
+    }
+    ,
+    async getAllHostedGames  ()  {
+        // get random games in limit of 5
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).toArray();
+        return games;
+    }
+    ,
+    async getHostedGameById  (id)  {
+        const game_hostedCollection = await host();
+        const game = await game_hostedCollection.findOne({ _id: id });
+        if (game === null) throw "Game not found";
+        return game;
+    }
+    ,
+    async getHostedGamesBySearchTerm  (searchTerm)  {
+        const game_hostedCollection = await host();
+        const games = await game_hostedCollection.find({ $text: { $search: searchTerm } }).toArray();
+        return games;
+    }
+    ,
+    async createHostedGame  (game)  {
+        const game_hostedCollection = await host();
+        const newGame = await game_hostedCollection.insertOne({
+            ...game,
+            createdAt: new Date()
+        });
+        if (newGame.insertedCount === 0) throw "Could not create game";
+        return newGame;
     }
 
 };
 
 module.exports = exportedMethods;
+
+
+
+
+
+
+
+

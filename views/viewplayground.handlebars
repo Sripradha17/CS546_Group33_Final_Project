@@ -6,22 +6,20 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
-                                <img src="{{playgrounds.image}}" class="img-fluid rounded" alt="...">
+                                <img src="{{playground.image}}" class="img-fluid rounded" alt="...">
                             </div>
                             <div class="col-md-8 col-sm-12 align-self-end">
-                                <h5 class="card-title">{{playgrounds.playgroundName}}</h5>
-                                <p class="card-text">Location: {{playgrounds.location}}</p>
-                                <p class="card-text">Time: {{playgrounds.schedule}}</p>
-                                <p class="card-text">Size: {{playgrounds.playgroundSize}}</p>
+                                <h5 class="card-title">{{playground.playgroundName}}</h5>
+                                <p class="card-text">Location: {{playground.location}}</p>
+                                <p class="card-text">Time: {{playground.schedule}}</p>
+                                <p class="card-text">Size: {{playground.playgroundSize}}</p>
                                 <p class="card-text">Amenities:
-                                    {{#each playgrounds.amenities}}
+                                    {{#each playground.amenities}}
                                     <span class="badge bg-info">{{this}}</span>
                                     {{/each}}
                                 </p>
-                                <a href="/playground/{{playgrounds._id}}" class="btn btn-primary"
-                                    aria-disabled="true">Join</a>
-                                
-
+                                {{!-- <a href="/playground/{{playground._id}}" class="btn btn-primary"
+                                    aria-disabled="true">Join</a> --}}
                             </div>
                         </div>
                     </div>
@@ -31,7 +29,7 @@
     </div>
 </section>
 
- <section id="playground-comments">
+<section id="playground-comments">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -42,10 +40,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/comment/6276dab28fe50c2e603c1304/{{playgrounds._id}}/add" method="POST">
+                        <form action="/playground/{{playground._id}}/comment" method="POST">
                             <div class="form-group">
                                 <label for="comment">Comment</label>
-                                <textarea class="form-control" id="commentValue" name="commentValue" rows="3"></textarea>
+                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -61,31 +59,18 @@
                             {{#each comments}}
                             <li class="list-group-item d-flex align-items-baseline justify-content-between">
                                 <p class="card-text">{{this.comment}}</p>
-                               
                                 <div class="align-items-baseline d-flex">
                                     <span class="align-items-baseline d-flex">
-                                        {{this.likes}} 
-                                        <form method="post" action="/comment/{{this._id}}/like">
-                                        <input type="hidden" name="playgroundId" id="playgroundId" value="{{this.playgroundId}}"/>
-                                            <button type="submit" class="btn">
-                                               <i class="fa-solid fa-thumbs-up"></i>
-                                            </button>
-                                        </form>
-
+                                        {{this.likes}}
+                                        <a href="/playground/{{this.playgroundId}}/comment/{{this._id}}/like"
+                                            class="btn"><i class="fa-solid fa-thumbs-up"></i></a>
                                     </span>
-                                     <span class="align-items-baseline d-flex">
-                                        {{this.dislikes}} 
-                                        <form method="post" action="/comment/{{this._id}}/dislike">
-                                        <input type="hidden" name="playgroundId" id="playgroundId" value="{{this.playgroundId}}"/>
-                                            <button type="submit" class="btn">
-                                               <i class="fa-solid fa-thumbs-down"></i>
-                                            </button>
-                                        </form>
-
+                                    <span class="align-items-baseline d-flex">
+                                        {{this.dislikes}}
+                                        <a href="/playground/{{this.playgroundId}}/comment/{{this._id}}/dislike"
+                                            class="btn"><i class="fa-solid fa-thumbs-down"></i></a>
                                     </span>
-                                   
                                 </div>
-                                 {{!-- <br><small>{{this.userId}}</small> --}}
                             </li>
                             {{/each}}
                         </ul>
@@ -94,4 +79,4 @@
             </div>
         </div>
     </div>
-</section> 
+</section>

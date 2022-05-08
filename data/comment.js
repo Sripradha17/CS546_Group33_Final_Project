@@ -19,7 +19,8 @@ const addComment = async (userId, playgroundId, comment) => {
         createdAt: new Date(),
     });
     if (newComment.insertedCount === 0) throw "Could not add comment";
-    return newComment;
+    const comments = await commentsCollection.find({ playgroundId: playgroundId }).sort({ likes: -1 }).toArray();
+    return comments;
 }
 
 const likeComment = async (commentId) => {

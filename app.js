@@ -5,7 +5,7 @@ const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const session = require('express-session')
 const path = require('path');
-const { createTextIndexes, createFakeData } = require("./config");
+
 const playground = require('./data/playground');
 const user = require('./data/user');
 
