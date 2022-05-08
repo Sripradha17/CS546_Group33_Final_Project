@@ -10,22 +10,29 @@ const router = Router();
 
 
 //route on click or select of playground
-router.get("/playground", async (req, res) => {
+router.post("/playground", async (req, res) => {
   try {
     const playgrounds = await search.filterPlaygrounds();
-    let userLoggedIn = false;
-    if (req.session.user) {
-      username = req.session.user.username;
-      userLoggedIn = true;
-    } else {
-      userLoggedIn = false;
-    }
-    console.log(userLoggedIn);
+
     res.render("playground", {
       playgrounds: playgrounds,
       title: "Play More",
       user: req.session.user,
-      userLoggedIn: userLoggedIn,
+      userLoggedIn: true
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+router.get("/playground", async (req, res) => {
+  try {
+    const playgrounds = await search.filterPlaygrounds();
+
+    res.render("playground", {
+      playgrounds: playgrounds,
+      title: "Play More",
+      user: req.session.user,
+      userLoggedIn: true
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -34,7 +41,7 @@ router.get("/playground", async (req, res) => {
 
 router.get("/playground/add", async (req, res) => {
   try {
-    res.render("addplayground", { title: "Add Playground" });
+    res.render("addplayground", { title: "Add Playground", userLoggedIn: true });
   } catch (e) {
     res.sendStatus(500);
   }
@@ -45,36 +52,35 @@ var multer = require('multer');
 
 
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now()+'.jpg')
-    }
+  destination: (req, file, cb) => {
+    cb(null, 'public/images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + '.jpg')
+  }
 });
 
 var upload = multer({ storage: storage });
 
 router.post('/playground/add', upload.single('image'), async (req, res) => {
+  try {
     const playgroundName = validation.checkString(req.body.playgroundName, "Playground name");
     const schedule = validation.checkString(req.body.schedule, "Schedule");
     const playgroundSize = validation.checkString(req.body.playgroundSize, "Playground size");
     const location = validation.checkString(req.body.location, "Location");
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
-    console.log("hhhh")
-    const imageData = '../public/images/'+ req.file.filename;
+
+    const imageData = '../public/images/' + req.file.filename;
     console.log(imageData)
 
-    try {
-        const respData = await playground.createPlayground(playgroundName, schedule, amenities, playgroundSize, location, imageData);
-        res.redirect('/playground/add');
 
-        if (respData) {
-            return res.json(data)
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    const respData = await playground.createPlayground(playgroundName, schedule, amenities, playgroundSize, location, imageData);
+    console.log("hhhh" + respData)
+    res.redirect('/playground');
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.get("/playground/:id/edit", async (req, res) => {
@@ -95,13 +101,14 @@ router.get("/playground/:id/edit", async (req, res) => {
 
 router.post("/playground/:id/edit", async (req, res) => {
   console.log("hhhh");
-  const playgroundName = req.body.playgroundName;
-  const schedule = req.body.schedule;
-  const playgroundSize = req.body.playgroundSize;
-  const location = req.body.location;
-  const amenities = req.body.amenities.split(" ");
-  console.log("hhhh2222");
   try {
+    const playgroundName = req.body.playgroundName;
+    const schedule = req.body.schedule;
+    const playgroundSize = req.body.playgroundSize;
+    const location = req.body.location;
+    const amenities = req.body.amenities.split(" ");
+    console.log("hhhh2222");
+
     const updatePlayground = await playground.update(
       req.params.id,
       playgroundName,
@@ -110,6 +117,7 @@ router.post("/playground/:id/edit", async (req, res) => {
       playgroundSize,
       location
     );
+    res.redirect('/playground');
   } catch (e) {
     if (e == "Error: No playground with this ID was found") {
       res.status(404).json({ error: e });
@@ -122,10 +130,6 @@ router.post("/playground/:id/edit", async (req, res) => {
 
 router.get("/playground/:id", async (req, res) => {
   try {
-    if (!req.session.user) {
-        return res.redirect("/user/login");
-    }
-
     const playgroundDoc = await playground.getPlaygroundById(req.params.id);
     const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
 

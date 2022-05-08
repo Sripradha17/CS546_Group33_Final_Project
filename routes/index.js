@@ -43,7 +43,7 @@ const constructorMethod = (app) => {
   });
   // app.use('/', userRoutes);
 
-  app.use("*", (request, response) => {
+  app.use("*", (req, res) => {
     res.redirect('/user/private')
   });
 
