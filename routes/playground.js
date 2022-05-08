@@ -168,7 +168,7 @@ router.post("/playground/:id/delete", async (req, res) => {
 });
 
 var multer = require("multer");
-const { getUserByUsername } = require("../data/user");
+const { getUserByID } = require("../data/user");
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -188,7 +188,7 @@ router.post("/playground/:id/comment", async (req, res) => {
     const comment = req.body.comment;
     const playgroundId = req.params.id;
 
-    const user = await getUserByUsername(req.session.user.username);
+    const user = await getUserByID(req.session.user.username);
 
     await Comments.addComment(user._id, playgroundId, comment);
 
