@@ -160,33 +160,7 @@ var storage = multer.diskStorage({
     }
 });
 
-router.get("/filter", async (req, res) => {
-    try {
-        const date = req.query.date;
-        const searchTerm = req.query.search;
-        const minPlaygroundSize = req.query.minPlaygroundSize;
-        const maxPlaygroundSize = req.query.maxPlaygroundSize;
-        const amenities = req.query.amenities;
 
-        const playgrounds = await playground.searchPlaygrounds({ searchTerm, date, minPlaygroundSize, maxPlaygroundSize, amenities });
-        const hostedGames = await host.getAll();
-
-        res.render("home", {
-            playgrounds,
-            sportWatchingEvents: hostedGames,
-            date: date,
-            searchTerm: searchTerm,
-            minPlaygroundSize: minPlaygroundSize,
-            maxPlaygroundSize: maxPlaygroundSize,
-            amenities: amenities,
-            title: "Play More",
-            user: req.session.user,
-            userLoggedIn: req.session.user ? true : false
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-})
 
 
 module.exports = router;

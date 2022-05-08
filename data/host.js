@@ -1,3 +1,4 @@
+const { host: Host } = require('../config/mongoCollections');
 const mongoCollections = require('../config/mongoCollections');
 const host = mongoCollections.host;
 const playground = mongoCollections.playground;
@@ -6,10 +7,27 @@ const validation = require('./validation');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
+const getHostedGames = async () => {
+    // get random games in limit of 5
+    const game_hostedCollection = await Host();
+    const games = await game_hostedCollection.find({}).sort({ createdAt: -1 }).limit(5).toArray();
+    return games;
+}
 
+const getHostedGameById = async (id) => {
+    const game_hostedCollection = await Host();
+    const game = await game_hostedCollection.findOne({ _id: id });
+    if (game === null) throw "Game not found";
+    return game;
+}
 let exportedMethods = {
     async createHostUser(firstname, lastname, username, email, password, confirm_password) {
 
+const getHostedGamesBySearchTerm = async (searchTerm) => {
+    const game_hostedCollection = await Host();
+    const games = await game_hostedCollection.find({ $text: { $search: searchTerm } }).toArray();
+    return games;
+}
         firstname = validation.checkString(firstname, 'First Name');
         lastname = validation.checkString(lastname, 'Last Name');
         username = validation.checkString(username, 'Username');
@@ -20,9 +38,59 @@ let exportedMethods = {
         password = validation.checkPassword(password, 'Password');
         confirm_password = validation.checkPassword(confirm_password, 'Confirm Password');
 
-        if (password !== confirm_password) {
+const createHostedGame = async (game) => {
+    const game_hostedCollection = await Host();
+    const newGame = await game_hostedCollection.insertOne({
+        ...game,
+        createdAt: new Date()
+    });
+    if (newGame.insertedCount === 0) throw "Could not create game";
+    return newGame;
+}
+        if(password !== confirm_password){
             throw "Your password not match!"
         }
+
+module.exports = {
+    getHostedGames,
+    getHostedGameById,
+    getHostedGamesBySearchTerm,
+    createHostedGame
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         const usersCollection = await host();
 
@@ -65,8 +133,7 @@ let exportedMethods = {
         comparePassword = await bcrypt.compare(password, userExists.password);
         if (!comparePassword) throw "Either the username or password is invalid";
 
-
-        return { authenticated: true, userId: userExists._id.toString() };
+        return { authenticated: true };
     },
     async createHost(sportname, adress, date, slot, detail) {
 
@@ -129,8 +196,8 @@ let exportedMethods = {
 
     async update(id, sportname, adress, date, slot, detail) {
 
-        const hostCollection = await host();
-        const updatedhosts = {
+        const bandsCollection = await host();
+        const updatedBands = {
             sportname: sportname,
             adress: adress,
             date: date,
@@ -138,9 +205,9 @@ let exportedMethods = {
             detail: detail
         };
 
-        const updatedInfo = await hostCollection.updateOne(
+        const updatedInfo = await bandsCollection.updateOne(
             { _id: ObjectId(id) },
-            { $set: updatedhosts }
+            { $set: updatedBands }
         );
         if (updatedInfo.modifiedCount === 0) {
             throw 'could not update bands successfully';
@@ -159,16 +226,16 @@ let exportedMethods = {
         }
 
         return playgroundList;
-    },
-    async getPlaygroundById(pId) {
-        pId = validation.checkId(pId)
-        const playgroundCollection = await playground();
-        const playgroundlist = await playgroundCollection.findOne({ _id: ObjectId(pId) });
-        if (playgroundlist === null) throw 'No bands with that id';
-        playgroundlist._id = playgroundlist._id.toString();
-        return playgroundlist;
     }
 
 };
 
 module.exports = exportedMethods;
+
+
+
+
+
+
+
+
