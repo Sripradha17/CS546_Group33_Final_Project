@@ -6,21 +6,20 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
-                                <img src="{{playgrounds.image}}" class="img-fluid rounded" alt="...">
+                                <img src="{{playground.image}}" class="img-fluid rounded" alt="...">
                             </div>
                             <div class="col-md-8 col-sm-12 align-self-end">
-                                <h5 class="card-title">{{playgrounds.playgroundName}}</h5>
-                                <p class="card-text">Location: {{playgrounds.location}}</p>
-                                <p class="card-text">Time: {{playgrounds.schedule}}</p>
-                                <p class="card-text">Size: {{playgrounds.playgroundSize}}</p>
+                                <h5 class="card-title">{{playground.playgroundName}}</h5>
+                                <p class="card-text">Location: {{playground.location}}</p>
+                                <p class="card-text">Time: {{playground.schedule}}</p>
+                                <p class="card-text">Size: {{playground.playgroundSize}}</p>
                                 <p class="card-text">Amenities:
-                                    {{#each playgrounds.amenities}}
+                                    {{#each playground.amenities}}
                                     <span class="badge bg-info">{{this}}</span>
                                     {{/each}}
                                 </p>
-                                <a href="/playground/{{playgrounds._id}}" class="btn btn-primary"
-                                    aria-disabled="true">Join</a>
-
+                                {{!-- <a href="/playground/{{playground._id}}" class="btn btn-primary"
+                                    aria-disabled="true">Join</a> --}}
                             </div>
                         </div>
                     </div>
@@ -30,7 +29,7 @@
     </div>
 </section>
 
-{{!-- <section id="playground-comments">
+<section id="playground-comments">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -80,4 +79,4 @@
             </div>
         </div>
     </div>
-</section> --}}
+</section>

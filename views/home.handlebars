@@ -1,86 +1,4 @@
-<section id="filter-container" class="px-5 py-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h6>Filter</h6>
-      </div>
-      <form action="/filter" method="get" class="d-flex align-items-end justify-content-between">
-
-        <div class="d-flex align-items-baseline">
-          <div class="form-group mx-1">
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" class="form-control" value="{{#if date}}{{date}}{{/if}}">
-            <input type="hidden" name="search" value="{{#if searchTerm}}{{searchTerm}}{{/if}}">
-          </div>
-
-          <div class="form-group mx-1">
-            <label for="minPlaygroundSize">Minimum Playground Size</label>
-            <input type="text" name="minPlaygroundSize" id="minPlaygroundSize" class="form-control" value="{{#if minPlaygroundSize}}{{minPlaygroundSize}}{{/if}}">
-          </div>
-
-          <div class="form-group mx-1">
-            <label for="maxPlaygroundSize">Maximum Playground Size</label>
-            <input type="text" name="maxPlaygroundSize" id="maxPlaygroundSize" class="form-control" value="{{#if maxPlaygroundSize}}{{maxPlaygroundSize}}{{/if}}">
-          </div>
-
-          <div class="form-group mx-1">
-            <label for="amenities">Amenities</label>
-            <input type="text" name="amenities" id="amenities" class="form-control" value="{{#if amenities}}{{amenities}}{{/if}}">
-          </div>
-          {{!-- <select name="amenities" id="amenities" class="form-control">
-            <option value="">Select</option>
-            <option value="playground" {{#if amenities}}{{#if amenities.playground}}selected{{/if}}{{/if}}>
-              Playground</option>
-            <option value="swimmingPool" {{#if amenities}}{{#if amenities.swimmingPool}}selected{{/if}}{{/if}}>
-              Swimming Pool</option>
-            <option value="basketballCourt" {{#if amenities}}{{#if amenities.basketballCourt}}selected{{/if}}{{/if}}>
-              Basketball Court</option>
-            <option value="footballCourt" {{#if amenities}}{{#if amenities.footballCourt}}selected{{/if}}{{/if}}>
-              Football Court</option>
-            <option value="soccerField" {{#if amenities}}{{#if amenities.soccerField}}selected{{/if}}{{/if}}>Soccer
-              Field</option>
-            <option value="tennisCourt" {{#if amenities}}{{#if amenities.tennisCourt}}selected{{/if}}{{/if}}>Tennis
-              Court</option>
-            <option value="badmintonCourt" {{#if amenities}}{{#if amenities.badmintonCourt}}selected{{/if}}{{/if}}>
-              Badminton Court</option>
-            <option value="gym" {{#if amenities}}{{#if amenities.gym}}selected{{/if}}{{/if}}>Gym</option>
-          </select>
-          --}}
-
-          {{!-- <div class="form-group mx-1">
-            <label for="likes">Likes</label>
-            <select name="likes" id="likes" class="form-control">
-              <option value="">Select</option>
-              <option value="1" {{#if likes}}{{#if (eq likes 1)}}selected{{/if}}{{/if}}>1</option>
-              <option value="2" {{#if likes}}{{#if (eq likes 2)}}selected{{/if}}{{/if}}>2</option>
-              <option value="3" {{#if likes}}{{#if (eq likes 3)}}selected{{/if}}{{/if}}>3</option>
-              <option value="4" {{#if likes}}{{#if (eq likes 4)}}selected{{/if}}{{/if}}>4</option>
-              <option value="5" {{#if likes}}{{#if (eq likes 5)}}selected{{/if}}{{/if}}>5</option>
-              <option value="-1" {{#if likes}}{{#if (eq likes -)1}}selected{{/if}}{{/if}}>5+</option>
-            </select>
-          </div>
-          <div class="form-group mx-1">
-            <label for="dislikes">Dislikes</label>
-            <select name="dislikes" id="dislikes" class="form-control">
-              <option value="">Select</option>
-              <option value="1" {{#if dislikes}}{{#if (eq dislikes 1)}}selected{{/if}}{{/if}}>1</option>
-              <option value="2" {{#if dislikes}}{{#if (eq dislikes 2)}}selected{{/if}}{{/if}}>2</option>
-              <option value="3" {{#if dislikes}}{{#if (eq dislikes 3)}}selected{{/if}}{{/if}}>3</option>
-              <option value="4" {{#if dislikes}}{{#if (eq dislikes 4)}}selected{{/if}}{{/if}}>4</option>
-              <option value="5" {{#if dislikes}}{{#if (eq dislikes 5)}}selected{{/if}}{{/if}}>5</option>
-              <option value="-1" {{#if dislikes}}{{#if (eq dislikes -)1}}selected{{/if}}{{/if}}>5+</option>
-            </select>
-          </div> --}}
-        </div>
-
-        <div>
-          <a role="button" href="/" class="btn">clear</a>
-          <button type="submit" class="btn btn-primary">Apply</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
+{{> playgroundSearch}}
 
 
 <section id="playgrounds" class="my-4">
@@ -99,7 +17,7 @@
             <img src="{{image}}" class="card-img-top" alt="...">
             <h5 class="card-title">{{this.playgroundName}}</h5>
             <p class="card-text">{{this.location}}</p>
-            <a href="/user/login" class="btn btn-primary">View</a>
+            <a href="{{#if ../userLoggedIn}}/playground/{{this._id}}{{else}}/user/login{{/if}}" class="btn btn-primary">View</a>
           </div>
         </div>
       </div>

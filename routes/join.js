@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -26,13 +25,10 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id', async (req, res) => {
-<<<<<<< HEAD
+
     const players = req.session.user.username;
     console.log(players.username)
-=======
-    console.log("hhhh")
-    const players = req.session.user.username;
->>>>>>> 674acda57b335086b2e7f45467755724716def4a
+
     try {
         const updatePlayground = await joinData.updatePlayers(req.params.id, players);
     } catch (e) {
@@ -45,3 +41,4 @@ router.post('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

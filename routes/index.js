@@ -3,10 +3,12 @@ const adminRoutes = require('./admin');
 const userRoutes = require('./user');
 const hostRoutes = require('./host');
 const joinRoutes = require('./join');
+const commentRoute = require('./comment')
+const quizRoute = require('./quiz')
 const session = require('express-session')
 const data = require('../data');
 const playgroundRoutes = require("./playground");
-// const eventsRoutes = require("./events");
+const eventsRoutes = require("./events");
 const showData = data.user;
 
 const constructorMethod = (app) => {

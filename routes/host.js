@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -137,7 +138,5 @@ router.post('/createHost/:id', async (req, res) => {
     }
 
 });
-
-
 
 module.exports = router;

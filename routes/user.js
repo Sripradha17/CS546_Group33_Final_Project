@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -151,5 +152,6 @@ router.get('/logout', function (req, res) {
     }
 
 });
+
 
 module.exports = router;

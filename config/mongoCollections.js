@@ -24,3 +24,6 @@ module.exports = {
   comment: getCollectionFn('comment'),
   quiz:getCollectionFn('quiz')
 };
+
+
+

@@ -26,7 +26,7 @@ let exportedMethods = {
             playgroundSize: playgroundSize,
             location: location,
             image: imageData
-        };
+
 
         const playGroundExists = await playgroundsCollection.findOne({ playgroundName: playgroundName });
         if (playGroundExists) throw "There is already a user with that username";
@@ -39,19 +39,6 @@ let exportedMethods = {
         // const data = await this.get(newId);
 
         return { userInserted: true };
-    },
-
-    async searchPlaygrounds() {
-        const playgroundCollection = await playground();
-        const playgroundList = await playgroundCollection.find({}).toArray();
-        if (!playgroundList) throw 'Could not get playgrounds';
-
-        for (let i = 0; i < playgroundList.length; i++) {
-
-            playgroundList[i]._id = playgroundList[i]._id.toString();
-        }
-
-        return playgroundList;
     },
 
     async getPlaygroundById(pId) {
@@ -116,39 +103,4 @@ let exportedMethods = {
 
 }
 
-
-
-// const getPlaygroundById = async (id) => {
-//     const playgroundsCollection = await Playground();
-//     const playground = await playgroundsCollection.findOne({ _id: ObjectId(id) });
-//     if (playground === null) throw "Playground not found";
-//     return playground;
-// }
-
-// const searchPlaygrounds = async (params) => {
-//     const playgroundsCollection = await Playground();
-//     const filter = {};
-//     if (params?.searchTerm) {
-//         filter.$text = { $search: params.searchTerm };
-//     }
-//     if (params?.date) {
-//         const _date = new Date(params.date);
-//         const day = _date.getDate();
-//         const month = _date.getMonth();
-//         const year = _date.getFullYear();
-
-//         filter.schedule = {
-//             $gte: new Date(year, month, day + 1),
-//             $lte: new Date(year, month, day + 2)
-//         }
-//     }
-//     const playgrounds = await playgroundsCollection.find(filter).toArray();
-//     return playgrounds;
-// }
-
 module.exports = exportedMethods;
-/*{
-    exportedMethods,
-    getPlaygroundById,
-    searchPlaygrounds
-}*/
