@@ -26,8 +26,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/:id', async (req, res) => {
-    console.log("hhhh")
     const players = req.session.user.username;
+    console.log(players.username)
     try {
         const updatePlayground = await joinData.updatePlayers(req.params.id, players);
     } catch (e) {

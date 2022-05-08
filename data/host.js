@@ -20,7 +20,7 @@ let exportedMethods = {
         password = validation.checkPassword(password, 'Password');
         confirm_password = validation.checkPassword(confirm_password, 'Confirm Password');
 
-        if(password !== confirm_password){
+        if (password !== confirm_password) {
             throw "Your password not match!"
         }
 
@@ -65,7 +65,8 @@ let exportedMethods = {
         comparePassword = await bcrypt.compare(password, userExists.password);
         if (!comparePassword) throw "Either the username or password is invalid";
 
-        return { authenticated: true };
+
+        return { authenticated: true, userId: userExists._id.toString() };
     },
     async createHost(sportname, adress, date, slot, detail) {
 
@@ -128,8 +129,8 @@ let exportedMethods = {
 
     async update(id, sportname, adress, date, slot, detail) {
 
-        const bandsCollection = await host();
-        const updatedBands = {
+        const hostCollection = await host();
+        const updatedhosts = {
             sportname: sportname,
             adress: adress,
             date: date,
@@ -137,9 +138,9 @@ let exportedMethods = {
             detail: detail
         };
 
-        const updatedInfo = await bandsCollection.updateOne(
+        const updatedInfo = await hostCollection.updateOne(
             { _id: ObjectId(id) },
-            { $set: updatedBands }
+            { $set: updatedhosts }
         );
         if (updatedInfo.modifiedCount === 0) {
             throw 'could not update bands successfully';
@@ -158,6 +159,14 @@ let exportedMethods = {
         }
 
         return playgroundList;
+    },
+    async getPlaygroundById(pId) {
+        pId = validation.checkId(pId)
+        const playgroundCollection = await playground();
+        const playgroundlist = await playgroundCollection.findOne({ _id: ObjectId(pId) });
+        if (playgroundlist === null) throw 'No bands with that id';
+        playgroundlist._id = playgroundlist._id.toString();
+        return playgroundlist;
     }
 
 };

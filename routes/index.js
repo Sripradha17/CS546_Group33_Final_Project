@@ -10,7 +10,7 @@ const playgroundRoutes = require("./playground");
 const showData = data.user;
 
 const constructorMethod = (app) => {
-  app.use("/", homeRoutes);
+  // app.use("/", homeRoutes);
   app.use("/admin", adminRoutes);
   app.use("/user", userRoutes);
   app.use("/host", hostRoutes);
@@ -27,20 +27,14 @@ const constructorMethod = (app) => {
   app.get("/", (req, res) => {
     let userLoggedIn = false;
     let userId = req.session.user;
-    // if(!!userId) {
-    //   res.redirect('/user/private')
-    //   userLoggedIn = false;
-    // } else {
-    //   res.render('login', { title: "Login" ,userLoggedIn: true})
-
-    // }
+    
 
     res.status(200).render("home", { userLoggedIn: userLoggedIn });
   });
-  // app.use('/', userRoutes);
+
 
   app.use("*", (request, response) => {
-    response.status(404).json({ error: "Route not found" });
+    res.redirect('/user/private')
   });
 
 };

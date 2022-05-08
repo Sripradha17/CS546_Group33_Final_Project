@@ -25,7 +25,7 @@ let exportedMethods = {
             amenities: amenities,
             playgroundSize: playgroundSize,
             location: location,
-            image: imageData.path
+            image: imageData
         };
 
         const playGroundExists = await playgroundsCollection.findOne({ playgroundName: playgroundName });
@@ -72,10 +72,10 @@ let exportedMethods = {
 
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete Band with id of ${pId}`;
-          }
-          const output = band.name+ " has been successfully deleted!";
-      
-          return output;
+        }
+        const output = band.name + " has been successfully deleted!";
+
+        return output;
 
     },
 

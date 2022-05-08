@@ -18,6 +18,7 @@ module.exports = {
   playground: getCollectionFn('playground'),
   game: getCollectionFn('game'),
   host: getCollectionFn('host'),
+  hostData: getCollectionFn('hostData'),
   players: getCollectionFn('players'),
   review: getCollectionFn('review'),
   comment: getCollectionFn('comment'),

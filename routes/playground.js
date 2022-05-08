@@ -8,19 +8,7 @@ const validation = require('../data/validation');
 var fs = require('fs');
 var path = require('path');
 const router = Router();
-var multer = require('multer');
 
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-
-var upload = multer({ storage: storage });
 
 //route on click or select of playground
 router.get("/playground", async (req, res) => {
@@ -53,13 +41,28 @@ router.get("/playground/add", async (req, res) => {
     }
 });
 
+var multer = require('multer');
+
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now()+'.jpg')
+    }
+});
+
+var upload = multer({ storage: storage });
+
 router.post('/playground/add', upload.single('image'), async (req, res) => {
     const playgroundName = validation.checkString(req.body.playgroundName, "Playground name");
     const schedule = validation.checkString(req.body.schedule, "Schedule");
     const playgroundSize = validation.checkString(req.body.playgroundSize, "Playground size");
     const location = validation.checkString(req.body.location, "Location");
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
-    const imageData = fs.readFileSync(path.join(__dirname, '..', 'public/images', req.file.filename));
+    console.log("hhhh")
+    const imageData = '../public/images/'+ req.file.filename;
     console.log(imageData)
 
     try {
@@ -165,7 +168,7 @@ router.get("/filter", async (req, res) => {
         const maxPlaygroundSize = req.query.maxPlaygroundSize;
         const amenities = req.query.amenities;
 
-        const playgrounds = await Playgrounds.searchPlaygrounds({ searchTerm, date, minPlaygroundSize, maxPlaygroundSize, amenities });
+        const playgrounds = await playground.searchPlaygrounds({ searchTerm, date, minPlaygroundSize, maxPlaygroundSize, amenities });
         const hostedGames = await host.getAll();
 
         res.render("home", {

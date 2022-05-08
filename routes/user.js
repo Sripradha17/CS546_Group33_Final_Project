@@ -4,6 +4,17 @@ const data = require('../data');
 const showData = data.user;
 const hostData = data.host;
 
+router.get('/', async (req, res) => {
+    try {
+        if (!!req.session.user) {
+            res.redirect('/user/private')
+        } else {
+            res.render('login', { title: "Login" })
+        }
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
 
 router.get('/login', async (req, res) => {
     try {
@@ -32,7 +43,7 @@ router.get('/profile', async (req, res) => {
 router.get('/private', async (req, res, next) => {
 
     try {
-        res.render('private', { title: "Information", userLoggedIn: true })
+        res.render('home', { title: "PlayMore", userLoggedIn: true })
     } catch (error) {
         res.sendStatus(500);
     }
@@ -54,23 +65,17 @@ router.post('/login', async (req, res) => {
         const password = req.body['password'];
 
         let userInfo;
-        if (username == "admin") {
-            res.redirect('/user/private')
-            
-        } else {
-            if (user == "user") {
-                userInfo = await showData.checkUser(username, password);
-            }
-            else {
-                userInfo = await hostData.checkUser(username, password);
-            }
+        if (user == "user") {
+            userInfo = await showData.checkUser(username, password);
+        }
+        else {
+            userInfo = await hostData.checkUser(username, password);
         }
 
-
-
-
+        console.log(userInfo.userId)
         if (userInfo.authenticated) {
             req.session.user = { username: username };
+            req.session.userID = { userId: userInfo.userId };
             res.redirect('/user/private')
         } else {
             res.status(400);
@@ -98,7 +103,7 @@ router.post('/signup', async (req, res) => {
 
         let user = req.body.loginradio;
 
-        console.log(user)
+        console.log("=----" + user)
         let userInfo;
         if (user == "host") {
             userInfo = await hostData.createHostUser(firstname, lastname, username, email, password, confirm_password);
