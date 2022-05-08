@@ -4,6 +4,7 @@ const userRoutes = require('./user');
 const hostRoutes = require('./host');
 const joinRoutes = require('./join');
 const commentRoute = require('./comment')
+const quizRoute = require('./quiz')
 const session = require('express-session')
 const data = require('../data');
 const playgroundRoutes = require("./playground");
@@ -16,6 +17,7 @@ const constructorMethod = (app) => {
   app.use("/user", userRoutes);
   app.use("/host", hostRoutes);
   app.use("/join", joinRoutes);
+   app.use("/quiz", quizRoute);
   app.use("/", playgroundRoutes);
   app.use(eventsRoutes);
   app.use("/comment", commentRoute);
