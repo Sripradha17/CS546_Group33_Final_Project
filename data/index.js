@@ -8,6 +8,7 @@ module.exports = {
     comments: require('./comment'),
     reviews: require('./review'),
     playgrounds: require('./playground'),
+    quiz: require('./quiz'),
     
   };
   
