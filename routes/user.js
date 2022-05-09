@@ -1,9 +1,21 @@
+
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const showData = data.user;
 const hostData = data.host;
 
+router.get('/', async (req, res) => {
+    try {
+        if (!!req.session.user) {
+            res.redirect('/user/private')
+        } else {
+            res.render('login', { title: "Login" })
+        }
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
 
 router.get('/login', async (req, res) => {
     try {
@@ -32,7 +44,7 @@ router.get('/profile', async (req, res) => {
 router.get('/private', async (req, res, next) => {
 
     try {
-        res.render('private', { title: "Information", userLoggedIn: true })
+        res.render('private', { title: "PlayMore", userLoggedIn: true, user: req.session.user })
     } catch (error) {
         res.sendStatus(500);
     }
@@ -45,6 +57,8 @@ router.post('/login', async (req, res) => {
             res.redirect('/user/private')
         }
 
+
+
         let user = req.body.loginradio;
         // let host = req.body['loginradio'];
 
@@ -54,28 +68,42 @@ router.post('/login', async (req, res) => {
         const password = req.body['password'];
 
         let userInfo;
-        if (username == "admin") {
-            res.redirect('/user/private')
+        // const hostcheck = false;
+        // const usercheck = false;
+        // const checkUser = "admin";
+        if (user == "user") {
+            userInfo = await showData.checkUser(username, password);
+            checkUser = "user";
+
+            if (userInfo.authenticated) {
+
+                req.session.user = { username: username };
+                req.session.userID = { userId: userInfo.userId };
+
+                res.redirect('/home')
+            } else {
+                res.status(400);
+                res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
+            }
+        }
+        else {
             
-        } else {
-            if (user == "user") {
-                userInfo = await showData.checkUser(username, password);
-            }
-            else {
-                userInfo = await hostData.checkUser(username, password);
-            }
+            userInfo = await hostData.checkUser(username, password);
+
+            if (userInfo.authenticated) {
+
+                req.session.user = { username: username };
+                req.session.userID = { userId: userInfo.userId };
+
+                res.redirect('/host')
+            } else {
+                res.status(400);
+                res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
+            }   
         }
 
 
 
-
-        if (userInfo.authenticated) {
-            req.session.user = { username: username };
-            res.redirect('/user/private')
-        } else {
-            res.status(400);
-            res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
-        }
     } catch (e) {
 
         res.status(400);
@@ -98,7 +126,7 @@ router.post('/signup', async (req, res) => {
 
         let user = req.body.loginradio;
 
-        console.log(user)
+        console.log("=----" + user)
         let userInfo;
         if (user == "host") {
             userInfo = await hostData.createHostUser(firstname, lastname, username, email, password, confirm_password);
@@ -146,5 +174,6 @@ router.get('/logout', function (req, res) {
     }
 
 });
+
 
 module.exports = router;

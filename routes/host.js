@@ -1,7 +1,9 @@
+
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const hostData = data.host;
+const createHostData = data.hostData;
 
 
 router.get('/', async (req, res) => {
@@ -15,52 +17,177 @@ router.get('/', async (req, res) => {
         })
 
     } catch (e) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/allhostlist', async (req, res) => {
+
+    try {
+
+        const hostingData = await createHostData.getAllHostData();
+        res.render('allHostList', {
+            title: "Hostlist", Host: hostingData,
+            userLoggedIn: true
+        })
+
+    } catch (e) {
         res.sendStatus(500);
     }
 });
-// router.get("/", async (req, res) => {
-//     try {
-//         const playgrounds = await playground.searchPlaygrounds();
 
-//         res.render("playground", {
-//             playgrounds: playgrounds,
-//             title: "Play More",
-//             user: req.session.user,
-//             userLoggedIn: req.session.user ? true : false
-//         });
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// })
-router.post('/', async (req, res) => {
+
+router.get('/allhostlist/:id', async (req, res) => {
+
     try {
-        // if (!!req.session.user) {
-        //     res.redirect('/user/private')
-        // }
-        const sportname = req.body['sportname'];
-        const adress = req.body['adress'];
-        const date = req.body['date'];
-        const slot = req.body['slot'];
-        const detail = req.body['detail'];
+        const hostData = await createHostData.get(req.params.id);
+        res.render("joinHostData", {
+            hostData, title: hostData.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
-        let host = await hostData.createHost(sportname, adress, date, slot, detail);
+router.get('/hostlist', async (req, res) => {
+
+    try {
+
+        const userid = req.session.userID;
+        const hostingData = await createHostData.getAll(userid.userId);
+        res.render('hostlist', {
+            title: "Hostlist", Host: hostingData,
+            userLoggedIn: true
+        })
+
+    } catch (e) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get("/playground/:id", async (req, res) => {
+    try {
+        const playgrounds = await hostData.getPlaygroundById(req.params.id);
+        
+        res.render("create_host", {
+            playgrounds, title: playgrounds.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+router.get("/hostlist/:id", async (req, res) => {
+    try {
+        const hostData = await createHostData.get(req.params.id);
+        res.render("hostView", {
+            hostData, title: hostData.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+router.get("/hostlist/:id/edit", async (req, res) => {
+    try {
+        const hostData = await createHostData.get(req.params.id);
+
+        res.render("hostEdit", {
+            hostData, title: hostData.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+router.post("/hostlist/:id/edit", async (req, res) => {
 
 
-        // if (userInfo.authenticated) {
-        //     req.session.user = { username: username };
-        //     res.redirect('/user/private')
-        // } else {
-        //     res.status(400);
-        //     res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
-        // }
+    const playgroundName = req.body.playgroundName;
+    const schedule = req.body.schedule;
+    const playgroundSize = req.body.playgroundSize;
+    const location = req.body.location;
+    const amenities = req.body.amenities.split(" ");
+
+    try {
+        const updatePlayground = await createHostData.update(req.params.id, playgroundName, schedule, amenities, playgroundSize, location);
+        res.redirect('/host/hostlist')
+    
     } catch (e) {
 
         res.status(400);
-        res.render('login', { error: e });
+        res.redirect(`/host/hostlist/${req.params.id}/edit`, { error: e })
+
+
+    }
+});
+router.post('/hostlist/:id/delete', async (req, res) => {
+
+    try {
+
+        const deletedAlbum = await createHostData.remove(req.params.id);
+
+        res.redirect('/host/hostlist')
+
+    } catch (e) {
+
+        res.status(400);
+        res.redirect('/host/hostlist', { error: e })
+    }
+});
+
+router.post('/join/:id', async (req, res) => {
+
+    try {
+
+        console.log("hhhhh")
+        console.log(req.params.id+"--" +req.session.userID.userId9+"--" + req.session.user.username)
+        const deletedAlbum = await createHostData.updateplayers(req.params.id, req.session.userID.userId, req.session.user.username);
+
+        res.redirect('/home')
+
+    } catch (e) {
+
+        res.status(400);
+        res.redirect('/host/hostlist', { error: e })
+    }
+});
+
+router.post('/createHost/:id', async (req, res) => {
+    try {
+
+
+        const userid = req.session.userID;
+
+
+        const check = await createHostData.checksameplygroundCreate(req.params.id);
+
+        if (!check) throw "You already hosted this plyground!"
+
+        const playgrounds = await hostData.getPlaygroundById(req.params.id);
+
+        
+        const time = req.body['time'];
+        const sportsname = req.body['sportsname'];
+
+        const respData = await createHostData.createHost(userid.userId, req.params.id, playgrounds.playgroundName, playgrounds.schedule, playgrounds.amenities, playgrounds.playgroundSize, playgrounds.location, playgrounds.image,time,sportsname);
+
+        res.render('create_host', {
+            success: true, playgrounds, title: playgrounds.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+
+    } catch (e) {
+
+        const playgrounds = await hostData.getPlaygroundById(req.params.id);
+        res.status(400);
+        res.render('create_host', {
+            error: e, playgrounds, title: playgrounds.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
     }
 
 });
-
-
 
 module.exports = router;

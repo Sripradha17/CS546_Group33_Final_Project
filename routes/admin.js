@@ -12,4 +12,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.post('/logout', function (req, res) {
+    try {
+        req.session.destroy();
+        res.redirect('/')
+
+    } catch (e) {
+        res.status(400);
+    }
+
+});
+
 module.exports = router;

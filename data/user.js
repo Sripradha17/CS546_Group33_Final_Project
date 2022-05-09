@@ -41,8 +41,9 @@ let exportedMethods = {
         if (userExists) throw "There is already a user with that username";
 
         const insertInfo = await usersCollection.insertOne(newUserdata);
+        
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add user';
+            throw 'Could not create user';
 
         const newId = insertInfo.insertedId.toString();
         // const data = await this.get(newId);
@@ -65,7 +66,7 @@ let exportedMethods = {
         comparePassword = await bcrypt.compare(password, userExists.password);
         if (!comparePassword) throw "Either the username or password is invalid";
 
-        return { authenticated: true };
+        return { authenticated: true ,userId: userExists._id.toString()};
     },
     async getAll() {
         const usersCollection = await user();
@@ -88,15 +89,6 @@ let exportedMethods = {
 
         user._id = user._id.toString();
         return user;
-    },
-    async getUserByUsername(username) {
-            
-            username = validation.checkString(username, 'Username');
-            const usersCollection = await user();
-            const userDoc = await usersCollection.findOne({ username: username });
-            if (userDoc === null) throw 'No bands with that id';
-            userDoc._id = userDoc._id.toString();
-            return userDoc;
     }
 
 };

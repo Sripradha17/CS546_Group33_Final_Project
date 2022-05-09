@@ -1,0 +1,41 @@
+<section id="playground-container" class="my-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <img src="{{hostData.image}}" class="img-fluid rounded" alt="...">
+                            </div>
+                            <div class="col-md-8 col-sm-12 align-self-end">
+                                <h5 class="card-title">{{hostData.playgroundName}}</h5>
+                                <p class="card-text">Location: {{hostData.location}}</p>
+                                <p class="card-text">Schedule: {{hostData.schedule}}</p>
+                                <p class="card-text">Size: {{hostData.playgroundSize}}</p>
+                                <p class="card-text">Amenities:
+                                    {{#each hostData.amenities}}
+                                    <span class="badge bg-info">{{this}}</span>
+                                    {{/each}}
+                                </p>
+                                <p class="card-text">Time and Date: {{hostData.time}}</p>
+                                <p class="card-text">SportsName: {{hostData.sportsname}}</p>
+
+                                <form method="POST" action="/host/join/{{hostData._id}}" class="new-post-form">
+                                    <button id="delete-button" type="submit">Join</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-container">
+                    {{#if error}}
+                    <h4>{{error}}</h4>
+                    {{/if}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
