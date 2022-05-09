@@ -20,14 +20,14 @@ const constructorMethod = (app) => {
    app.use("/quiz", quizRoute);
   app.use("/", playgroundRoutes);
   app.use(eventsRoutes);
-  app.use("/comment"  , commentRoute);
+  app.use("/comment", commentRoute);
 
-  const Logging = async (req, res, next) => {
-    console.log(`[${new Date().toUTCString()}]: ${req.method}\t${req.originalUrl}\t\t${!!req.session.user ? 'Authenticated' : 'Not Authenticated'}`);
-    next()
-  };
+  // const Logging = async (req, res, next) => {
+  //   console.log(`[${new Date().toUTCString()}]: ${req.method}\t${req.originalUrl}\t\t${!!req.session.user ? 'Authenticated' : 'Not Authenticated'}`);
+  //   next()
+  // };
 
-  app.use(Logging);
+  // app.use(Logging);
   app.get("/", (req, res) => {
     let userLoggedIn = false;
     let userId = req.session.user;

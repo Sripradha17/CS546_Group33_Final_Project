@@ -1,4 +1,3 @@
-
 <section id="playground-container" class="my-4">
     <div class="container">
         <div class="row">
@@ -12,14 +11,19 @@
                             <div class="col-md-8 col-sm-12 align-self-end">
                                 <h5 class="card-title">{{hostData.playgroundName}}</h5>
                                 <p class="card-text">Location: {{hostData.location}}</p>
-                                <p class="card-text">Time: {{hostData.schedule}}</p>
+                                <p class="card-text">Schedule: {{hostData.schedule}}</p>
                                 <p class="card-text">Size: {{hostData.playgroundSize}}</p>
                                 <p class="card-text">Amenities:
                                     {{#each hostData.amenities}}
                                     <span class="badge bg-info">{{this}}</span>
                                     {{/each}}
                                 </p>
-                                
+                                <p class="card-text">Time and Date: {{hostData.time}}</p>
+                                <p class="card-text">SportsName: {{hostData.sportsname}}</p>
+
+                                <form method="POST" action="/host/join/{{hostData._id}}" class="new-post-form">
+                                    <button id="delete-button" type="submit">Join</button>
+                                </form>
 
                             </div>
                         </div>
@@ -30,11 +34,6 @@
                     <h4>{{error}}</h4>
                     {{/if}}
                 </div>
-                {{#if success}}
-                <div class="alert alert-success" role="alert">
-                    Successfully created Host!
-                </div>
-                {{/if}}
 
             </div>
         </div>

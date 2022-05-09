@@ -76,4 +76,20 @@ module.exports = {
       throw `Error!! Comment cannot contain only digits!!!`;
     return commentValue;
   },
+
+  validateEmail(input) {
+    var validRegex = ('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    if (input.value.match(validRegex)) {
+      alert("Valid email address!");
+      //document.form1.text1.focus();
+      return true;
+    } else {
+      alert("Invalid email address!");
+      //document.form1.text1.focus();
+      return false;
+    }
+  }
+  
+
+
 };

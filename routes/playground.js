@@ -43,7 +43,7 @@ router.get("/playground/add", async (req, res) => {
   try {
     res.render("addplayground", { title: "Add Playground", userLoggedIn: true });
   } catch (e) {
-    res.sendStatus(500);
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -70,7 +70,7 @@ router.post('/playground/add', upload.single('image'), async (req, res) => {
     const location = validation.checkString(req.body.location, "Location");
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
 
-    const imageData = '../public/images/' + req.file.filename;
+    const imageData = 'http://localhost:3000/public/images/' + req.file.filename;
     console.log(imageData)
 
 
@@ -130,20 +130,20 @@ router.post("/playground/:id/edit", async (req, res) => {
 
 router.get("/playground/:id", async (req, res) => {
   try {
-      const playgrounds = await playground.getPlaygroundById(req.params.id);
-       const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
-      console.log(playgrounds);
-      console.log(req.session.user);
-      res.render("viewplayground", {
-          playgrounds, title: playgrounds.playgroundName, user: req.session.user, userId: req.session.userId,
-          userLoggedIn: req.session.user ? true : false,
-          comments
-      });
+    const playgroundDoc = await playground.getPlaygroundById(req.params.id);
+    const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
+
+    res.render("viewplayground", {
+      playground: playgroundDoc,
+      comments,
+      title: playgroundDoc.playgroundName,
+      user: req.session.user,
+      userLoggedIn: req.session.user ? true : false,
+    });
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
-
 
 router.get("/playground/:id/delete", async (req, res) => {
   try {
@@ -172,7 +172,7 @@ router.post("/playground/:id/delete", async (req, res) => {
 });
 
 var multer = require("multer");
-const { getUserByUsername } = require("../data/user");
+const { getUserByID } = require("../data/user");
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -192,7 +192,7 @@ router.post("/playground/:id/comment", async (req, res) => {
     const comment = req.body.comment;
     const playgroundId = req.params.id;
 
-    const user = await getUserByUsername(req.session.user.username);
+    const user = await getUserByID(req.session.user.username);
 
     await Comments.addComment(user._id, playgroundId, comment);
 
