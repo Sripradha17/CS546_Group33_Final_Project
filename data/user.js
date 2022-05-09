@@ -71,7 +71,7 @@ let exportedMethods = {
     async getAll() {
         const usersCollection = await user();
         const Userslist = await usersCollection.find({}).toArray();
-        if (!Userslist) throw 'Could not get all bands';
+        if (!Userslist) throw 'Could not get all Users';
 
         for (let i = 0; i < Userslist.length; i++) {
 
@@ -85,7 +85,7 @@ let exportedMethods = {
         userId = validation.checkId(userId)
         const usersCollection = await user();
         const user = await usersCollection.findOne({ _id: ObjectId(userId) });
-        if (user === null) throw 'No bands with that id';
+        if (user === null) throw 'No User with that id';
 
         user._id = user._id.toString();
         return user;

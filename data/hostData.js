@@ -62,9 +62,9 @@ let exportedMethods = {
         const deletionInfo = await hostCollection.deleteOne({ _id: ObjectId(pId) });
 
         if (deletionInfo.deletedCount === 0) {
-            throw `Could not delete Band with id of ${pId}`;
+            throw `Could not delete Host with id of ${pId}`;
         }
-        const output = " has been successfully deleted!";
+        const output = "Host data has been successfully deleted!";
 
         return output;
 
@@ -100,7 +100,7 @@ let exportedMethods = {
 
         const hostCollection = await hostData();
         const hostdata = await hostCollection.findOne({ _id: ObjectId(id) });
-        if (hostdata === null) throw 'No bands with that id';
+        if (hostdata === null) throw 'No host with that id';
 
         hostdata._id = hostdata._id.toString();
         return hostdata;

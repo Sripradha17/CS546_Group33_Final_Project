@@ -36,7 +36,6 @@ let exportedMethods = {
             throw 'Could not add playground';
 
         const newId = insertInfo.insertedId.toString();
-        // const data = await this.get(newId);
 
         return { userInserted: true };
     },
@@ -45,9 +44,22 @@ let exportedMethods = {
         pId = validation.checkId(pId)
         const playgroundCollection = await playground();
         const play = await playgroundCollection.findOne({ _id: ObjectId(pId) });
-        if (play === null) throw 'No bands with that id';
+        if (play === null) throw 'No playground with that id';
         play._id = play._id.toString();
         return play;
+    },
+    async searchdata(searchData) {
+        searchData = validation.checkString(searchData)
+        const playgroundCollection = await playground();
+        const Userslist = await playgroundCollection.find({}).toArray();
+        const data = Userslist.filter(u => u.playgroundName.toLowerCase().includes(searchData.toLowerCase()))
+        if (data === null) throw 'No playground with that id';
+        console.log(data)
+        for (let i = 0; i < data.length; i++) {
+
+            data[i]._id = data[i]._id.toString();
+          }
+        return data;
     },
 
     async remove(pId) {
@@ -56,7 +68,7 @@ let exportedMethods = {
         const deletionInfo = await playgroundCollection.deleteOne({ _id: ObjectId(pId) });
 
         if (deletionInfo.deletedCount === 0) {
-            throw `Could not delete Band with id of ${pId}`;
+            throw `Could not delete host with id of ${pId}`;
         }
         const output = " has been successfully deleted!";
 
@@ -66,14 +78,13 @@ let exportedMethods = {
 
     async update(id, playgroundName, schedule, amenities, playgroundSize, location) {
         const playgroundCollection = await Playground();
-        // id = validation.checkId(id)
-        // playgroundName = validation.checkString(playgroundName, 'Playground Name');
-        // schedule = validation.checkString(schedule, 'Schedule');
-        // amenities = validation.checkArray(amenities.split(" "), 'Amenities');
-        // playgroundSize = validation.checkString(playgroundSize, 'Playground size');
-        // location = validation.checkString(location, 'location');
+        id = validation.checkId(id)
+        playgroundName = validation.checkString(playgroundName, 'Playground Name');
+        schedule = validation.checkString(schedule, 'Schedule');
+        amenities = validation.checkArryString(amenities.split(" "), 'Amenities');
+        playgroundSize = validation.checkString(playgroundSize, 'Playground size');
+        location = validation.checkString(location, 'location');
 
-        console.log("ghhhh2")
 
         let doc = await this.getPlaygroundById(id);
         const updated = {
@@ -84,7 +95,6 @@ let exportedMethods = {
             playgroundSize: playgroundSize,
             location: location
         };
-        console.log(updated)
         let parsedId = ObjectId(id);
         const upPlay = await playgroundCollection.findOne({ _id: parsedId });
         if (upPlay == null) {

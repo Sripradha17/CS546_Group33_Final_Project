@@ -6,7 +6,6 @@ module.exports = {
   join: require("./join"),
   comments: require("./comment"),
   playgrounds: require("./playground"),
-  quiz: require('./quiz'),
-  hosted_game: require("./hosted_game"),
+  hosted_game: require("./hosted_game")
 };
 

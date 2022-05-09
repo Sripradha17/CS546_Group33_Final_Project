@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-sm-6 text-black">
 
-
         <div
           class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
         >
@@ -15,57 +14,37 @@
             action="/user/login"
           >
 
-            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Play
-              More</h3>
+            <h3 class="fw-normal mb-3 pb-3 home_header">PLAY MORE</h3>
 
-            <p>This website will act as a booking system for playgrounds. It
-              will also provide option to host a match if people want to play a
-              particular sport together. In this website users can create a post
-              of their event. They can select a particular sport which they are
-              going to play/host. They can also write reviews on playgrounds
-              which are already existing. The purpose of application is to allow
-              users to find nearby events / matches which they would like to
-              join. If they have a location, they can host the game to play.</p>
-            {{! 
-        <div id = "home2">
-          <a href="/admin" class="btn btn-primary" aria-disabled="true">Admin</a>
+            <p class="home_body">This website will act as a booking system for
+              playgrounds. It will also provide option to host a match if people
+              want to play a particular sport together. In this website users
+              can create a post of their event. They can select a particular
+              sport which they are going to play/host. They can also write
+              reviews on playgrounds which are already existing. The purpose of
+              application is to allow users to find nearby events / matches
+              which they would like to join. If they have a location, they can
+              host the game to play.</p>
 
-            <a href="/login" class="btn btn-primary" aria-disabled="true">Login</a>
+            <div class="home_buttons">
+              <div class="home_button_ul">
+                <a href="/admin" class="btn btn-primary home_button_a">Admin</a>
 
-        </div> }}
-
-            <ul>
-              <a
-                href="/admin"
-                class="btn btn-primary"
-                aria-disabled="true"
-              >Admin</a>
-
-            </ul>
-            <ul><a
-                href="/login"
-                class="btn btn-primary"
-                aria-disabled="true"
-              >Login</a></ul>
-
-            <div class="pt-1 mb-4">
-              {{! <button class="btn btn-info btn-lg btn-block" type="button">Login</button> }}
-              {{! <button id="login-button" class="btn btn-primary" onclick="displayRadioValue()"
-                type="submit">Login</button> }}
+              </div>
+              <div class="home_button_ul"><a
+                  href="/user/login"
+                  class="btn btn-primary home_button_a"
+                >Login</a></div>
             </div>
-
-            {{! <p>Don't have an account? <a href="/user/signup" class="link-info">Register here</a></p> }}
+            <div class="pt-1 mb-4">
+            </div>
 
             {{#if error}}
               <div class="alert alert-danger" role="alert">
                 {{error}}
               </div>
             {{/if}}
-            {{!-- <div class="error-container">
-              {{#if error}}
-              <h4>{{error}}</h4>
-              {{/if}}
-            </div> --}}
+
           </form>
 
         </div>
@@ -91,4 +70,3 @@
   document.getElementById("result").innerHTML += ele[i].name + " Value: " +
   ele[i].value + "<br>"; } } }
 </script>
-

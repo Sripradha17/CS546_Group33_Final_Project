@@ -57,20 +57,12 @@ router.post('/login', async (req, res) => {
             res.redirect('/user/private')
         }
 
-
-
         let user = req.body.loginradio;
-        // let host = req.body['loginradio'];
-
-
 
         const username = req.body['username'];
         const password = req.body['password'];
 
         let userInfo;
-        // const hostcheck = false;
-        // const usercheck = false;
-        // const checkUser = "admin";
         if (user == "user") {
             userInfo = await showData.checkUser(username, password);
             checkUser = "user";
@@ -102,8 +94,6 @@ router.post('/login', async (req, res) => {
             }   
         }
 
-
-
     } catch (e) {
 
         res.status(400);
@@ -126,7 +116,6 @@ router.post('/signup', async (req, res) => {
 
         let user = req.body.loginradio;
 
-        console.log("=----" + user)
         let userInfo;
         if (user == "host") {
             userInfo = await hostData.createHostUser(firstname, lastname, username, email, password, confirm_password);

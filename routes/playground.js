@@ -9,6 +9,22 @@ var path = require("path");
 const router = Router();
 
 
+router.post("/search", async (req, res) => {
+  try {
+
+    const searchdata = req.body['search'];
+    const playgrounds = await playground.searchdata(searchdata);
+
+    res.render("playground", {
+      playgrounds: playgrounds,
+      title: "Play More",
+      user: req.session.user,
+      userLoggedIn: true
+    });
+  } catch (error) {
+    res.status(500).render("playground",{error: error.message});
+  }
+});
 //route on click or select of playground
 router.post("/playground", async (req, res) => {
   try {
@@ -24,6 +40,7 @@ router.post("/playground", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 router.get("/playground", async (req, res) => {
   try {
     const playgrounds = await search.filterPlaygrounds();
@@ -41,7 +58,7 @@ router.get("/playground", async (req, res) => {
 
 router.get("/playground/add", async (req, res) => {
   try {
-    res.render("addplayground", { title: "Add Playground", userLoggedIn: true });
+    res.render("addplayground", { title: "ADD PLAYGROUND", userLoggedIn: true });
   } catch (e) {
     res.sendStatus(500);
   }
@@ -71,11 +88,8 @@ router.post('/playground/add', upload.single('image'), async (req, res) => {
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
 
     const imageData = '../public/images/' + req.file.filename;
-    console.log(imageData)
-
 
     const respData = await playground.createPlayground(playgroundName, schedule, amenities, playgroundSize, location, imageData);
-    console.log("hhhh" + respData)
     res.redirect('/playground');
 
   } catch (error) {
@@ -86,7 +100,6 @@ router.post('/playground/add', upload.single('image'), async (req, res) => {
 router.get("/playground/:id/edit", async (req, res) => {
   try {
     const playgrounds = await playground.getPlaygroundById(req.params.id);
-    //   const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
 
     res.render("editplayground", {
       playgrounds,
@@ -100,14 +113,12 @@ router.get("/playground/:id/edit", async (req, res) => {
 });
 
 router.post("/playground/:id/edit", async (req, res) => {
-  console.log("hhhh");
   try {
     const playgroundName = req.body.playgroundName;
     const schedule = req.body.schedule;
     const playgroundSize = req.body.playgroundSize;
     const location = req.body.location;
     const amenities = req.body.amenities.split(" ");
-    console.log("hhhh2222");
 
     const updatePlayground = await playground.update(
       req.params.id,
@@ -132,8 +143,6 @@ router.get("/playground/:id", async (req, res) => {
   try {
       const playgrounds = await playground.getPlaygroundById(req.params.id);
        const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
-      console.log(playgrounds);
-      console.log(req.session.user);
       res.render("viewplayground", {
           playgrounds, title: playgrounds.playgroundName, user: req.session.user, userId: req.session.userId,
           userLoggedIn: req.session.user ? true : false,
@@ -148,7 +157,6 @@ router.get("/playground/:id", async (req, res) => {
 router.get("/playground/:id/delete", async (req, res) => {
   try {
     const playgrounds = await playground.getPlaygroundById(req.params.id);
-    //   const comments = await Comments.getCommentsByPlaygroundId(req.params.id);
 
     res.render("deleteplayground", {
       playgrounds,
@@ -162,7 +170,6 @@ router.get("/playground/:id/delete", async (req, res) => {
 });
 
 router.post("/playground/:id/delete", async (req, res) => {
-  console.log("kkkkkk" + req.params.id);
   try {
     const deletedAlbum = await playground.remove(req.params.id);
     res.redirect("/playground");

@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    {{!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>  --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/main_style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="/public/css/styles.css" />
 
     <title>
       {{#if title}}
@@ -21,83 +39,15 @@
         Play More
       {{/if}}
     </title>
-</head>
+  </head>
 
-<body>
+  <body>
 
     <main>
-        {{!-- {{> header }} --}}
-        {{!-- <div class="topnav">
-            <a class="active" href="#home">Home</a>
-            <a href="#news">News</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
-        </div> --}}
-        {{{body}}}
-
-         <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        $('#addNewPostButton').click(function () {
-
-            var form = document.getElementById('static-form');
-
-            if (form) {
-                var formData = new FormData(form);
-
-                var file = document.getElementById('addImg')
-
-                // count for photos user has chosen
-                var fileCount = 0;
-                $('#picTips').hide();
-
-                // when user choose photos
-                file.onchange = function () {
-                    for (let i = 0; i < this.files.length; i++) {
-                        formData.append('photo' + i, this.files[i]); // add photos' path to formData
-                        fileCount++;
-                    }
-                    if (fileCount == 1) {
-                        $('#picTips').text('You have chosen ' + fileCount + ' photo');
-                        $('#picTips').show();
-                    } else if (fileCount > 1 && fileCount <= 3) {
-                        $('#picTips').text('You have chosen ' + fileCount + ' photos');
-                        $('#picTips').show();
-                    } else {
-                        $('#picTips').text('You can only upload 3 photos at most');
-                        $('#picTips').show();
-                    }
-                }
-            }
-
-            var xhr = new XMLHttpRequest();//创建 Ajax 对象
-
-            var tagArr = [];
-            $('input[type="checkbox"]:checked').each(function (index) {
-                tagArr[index] = $(this).val();
-            })
-            let JSONData = JSON.stringify(tagArr);
-
-            formData.set('tagArr', JSONData);
-            formData.set("topic", $('#topicId').val());
-            formData.set("content", $('#contentId').val());
-            formData.delete('tag');
-            formData.delete('photoArr');
-
-            xhr.open('post', '/host/createPost');
-            xhr.send(formData);
-
-            xhr.onload = function () {//获取服务器端给与客户端的响应数据
-                console.log(xhr.responseText);
-                // alert("Succeed!")
-                var Timeout = setTimeout(function () {
-                    window.location.reload();
-                }, 500);
-            }
-        })
-    </script>
+      {{{body}}}
 
     </main>
 
-</body>
+  </body>
 
 </html>

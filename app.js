@@ -61,7 +61,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play1 = await playground.createPlayground("Overpeck County Park Football Field", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "Overpeck County Park Football Field, 230 Roosevelt Pl, Palisades Park, NJ 07650");
+    const play1 = await playground.createPlayground("Overpeck County Park Football Field", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "Overpeck County Park Football Field, 230 Roosevelt Pl, Palisades Park, NJ 07650","../public/images/image-1652082503551.jpg");
     console.log(play1)
     var play1_id = play1._id;
     console.log("\n")
@@ -71,7 +71,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play2 = await playground.createPlayground("Liberty State Park Playground", "Monday-Friday 6AM-10PM", ["parking", "locker room", "Gym"], "1212 acre", "535 Freedom Way, Jersey City, NJ 07305");
+    const play2 = await playground.createPlayground("Liberty State Park Playground", "Monday-Friday 6AM-10PM", ["parking", "locker room", "Gym"], "1212 acre", "535 Freedom Way, Jersey City, NJ 07305","../public/images/image-1652082503551.jpg");
     console.log(play1)
     var play2_id = play1._id;
     console.log("\n")
@@ -81,7 +81,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play3 = await playground.createPlayground("Newport Green Park", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "Green Park, 14th St, Jersey City, NJ 07310");
+    const play3 = await playground.createPlayground("Newport Green Park", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "Green Park, 14th St, Jersey City, NJ 07310","../public/images/image-1652082503551.jpg");
     console.log(play1)
     var play3_id = play1._id;
     console.log("\n")
@@ -91,7 +91,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play4 = await playground.createPlayground("17th St Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "1701 West St, Union City, NJ 07087");
+    const play4 = await playground.createPlayground("17th St Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "1701 West St, Union City, NJ 07087","../public/images/image-1652082503551.jpg");
     console.log(play1)
     var play4_id = play1._id;
     console.log("\n")
@@ -101,7 +101,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play5 = await playground.createPlayground("Weehawken Public Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", " NJ-495, Weehawken, NJ 07086");
+    const play5 = await playground.createPlayground("Weehawken Public Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", " NJ-495, Weehawken, NJ 07086","../public/images/image-1652082503551.jpg");
     console.log(play1)
     var play5_id = play1._id;
     console.log("\n")
