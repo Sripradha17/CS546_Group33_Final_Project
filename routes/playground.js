@@ -43,7 +43,7 @@ router.get("/playground/add", async (req, res) => {
   try {
     res.render("addplayground", { title: "Add Playground", userLoggedIn: true });
   } catch (e) {
-    res.sendStatus(500);
+    res.status(500).json({ error: error.message });
   }
 });
 
