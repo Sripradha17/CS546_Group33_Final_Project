@@ -2,19 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card view-card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
-                                <img src="{{playground.image}}" class="img-fluid rounded" alt="...">
+                                <img style="width: 100%; height:400px;" src="{{playgrounds.image}}"
+                                    class="img-fluid rounded" alt="...">
                             </div>
-                            <div class="col-md-8 col-sm-12 align-self-end">
-                                <h5 class="card-title">{{playground.playgroundName}}</h5>
-                                <p class="card-text">Location: {{playground.location}}</p>
-                                <p class="card-text">Time: {{playground.schedule}}</p>
-                                <p class="card-text">Size: {{playground.playgroundSize}}</p>
-                                <p class="card-text">Amenities:
-                                    {{#each playground.amenities}}
+                            <div class="col-md-8 col-sm-12">
+                                <h5 class="card-title view-card-title">{{playgrounds.playgroundName}}</h5>
+                                <p class="card-text view-card-text"><b>Location: </b>{{playgrounds.location}}</p>
+                                <p class="card-text view-card-text"><b>Time: </b>{{playgrounds.schedule}}</p>
+                                <p class="card-text view-card-text"><b>Size: </b>{{playgrounds.playgroundSize}}</p>
+                                <p class="card-text view-card-text"><b>Amenities: </b>
+                                    {{#each playgrounds.amenities}}
                                     <span class="badge bg-info">{{this}}</span>
                                     {{/each}}
                                 </p>
@@ -40,7 +41,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/comment/{{userId}}/{{playgrounds._id}}/add" method="POST">
+
+                        <form action="/comment/{{playgrounds._id}}/add" method="POST">
                             <div class="form-group">
                                 <label for="comment">Comment</label>
                                 <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>

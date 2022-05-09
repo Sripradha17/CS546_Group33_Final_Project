@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         })
 
     } catch (e) {
-        res.status(500).json({ error: error.message });
+        res.sendStatus(500);
     }
 });
 
@@ -62,7 +62,7 @@ router.get('/hostlist', async (req, res) => {
         })
 
     } catch (e) {
-        res.status(500).json({ error: error.message });
+        res.sendStatus(500);
     }
 });
 
@@ -137,23 +137,6 @@ router.post('/hostlist/:id/delete', async (req, res) => {
     }
 });
 
-router.post('/join/:id', async (req, res) => {
-
-    try {
-
-        console.log("hhhhh")
-        console.log(req.params.id+"--" +req.session.userID.userId9+"--" + req.session.user.username)
-        const deletedAlbum = await createHostData.updateplayers(req.params.id, req.session.userID.userId, req.session.user.username);
-
-        res.redirect('/home')
-
-    } catch (e) {
-
-        res.status(400);
-        res.redirect('/host/hostlist', { error: e })
-    }
-});
-
 router.post('/createHost/:id', async (req, res) => {
     try {
 
@@ -171,7 +154,7 @@ router.post('/createHost/:id', async (req, res) => {
         const time = req.body['time'];
         const sportsname = req.body['sportsname'];
 
-        const respData = await createHostData.createHost(userid.userId, req.params.id, playgrounds.playgroundName, playgrounds.schedule, playgrounds.amenities, playgrounds.playgroundSize, playgrounds.location, playgrounds.image,time,sportsname);
+        const respData = await createHostData.createHost(userid.userId, req.params.id, playgrounds.playgroundName, playgrounds.schedule, playgrounds.amenities, playgrounds.playgroundSize, playgrounds.location, playgrounds.imageData,time,sportsname);
 
         res.render('create_host', {
             success: true, playgrounds, title: playgrounds.playgroundName, user: req.session.user,

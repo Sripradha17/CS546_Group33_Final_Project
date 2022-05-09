@@ -1,87 +1,70 @@
-
 <section class="vh-100">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6 text-black">
-
-
                 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
-                    <form style="width: 23rem;" id="signup-form" method="POST" action="/user/signup">
-
-                        <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign up</h3>
-
+                    <form class="signup_form" id="signup-form" method="POST" action="/user/signup">
+                        <h3 class="fw-normal mb-3 pb-3 signup_header" style="letter-spacing: 1px;">SIGN-UP</h3>
                         <div class="row">
                             <div class="form-outline">
+                                <p>Select user/host to login to account</p>
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="loginradio" id="user"
-                                        value="user" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                         User
                                     </label>
+                                    <input style="margin-top: 2px;" class="form-check-input" type="radio" name="loginradio" id="user"
+                                        value="user" checked>
                                 </div>
-
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="loginradio" id="host"
-                                        value="host">
                                     <label class="form-check-label" for="exampleRadios2">
                                         Host
                                     </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="form-outline">
-
-                                    <input type="text" id="firstname" name="firstname"
-                                        class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example18">First Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="form-outline">
-                                    <input type="text" id="lastname" name="lastname"
-                                        class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example18">Last Name</label>
-
+                                    <input class="form-check-input" type="radio" name="loginradio" id="host"
+                                        value="host">
                                 </div>
                             </div>
                         </div>
                         <div class="form-outline mb-4">
-                            <input type="text" id="username" name="username" class="form-control form-control-lg" />
-                            <label class="form-label" for="form2Example18">Username</label>
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="email" id="email" name="email" class="form-control form-control-lg" />
-                            <label class="form-label" for="form2Example18">Email</label>
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
-                            <label class="form-label" for="form2Example28">Password</label>
-                        </div>
-                        <div class="form-outline mb-4">
-                            <input type="password" id="confirm_password" name="confirm_password"
+                            <label class="form-label signup_form_text" for="form2Example18">First Name</label>
+                            <input type="text" id="firstname" placeholder="Enter firstname" name="firstname"
                                 class="form-control form-control-lg" />
-                            <label class="form-label" for="form2Example28">Confirm Password</label>
                         </div>
-
+                        <div class="form-outline mb-4">
+                            <label class="form-label signup_form_text" for="form2Example18">Last Name</label>
+                            <input type="text" id="lastname" placeholder="Enter lastname" name="lastname"
+                                class="form-control form-control-lg" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label signup_form_text" for="form2Example18">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Enter username"
+                                class="form-control form-control-lg" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label signup_form_text" for="form2Example18">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter email-id"
+                                class="form-control form-control-lg" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label signup_form_text" for="form2Example28">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter password"
+                                class="form-control form-control-lg" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label signup_form_text" for="form2Example28">Confirm Password</label>
+                            <input type="password" id="confirm_password" placeholder="Enter confirm password"
+                                name="confirm_password" class="form-control form-control-lg" />
+                        </div>
                         {{#if error}}
                         <div class="alert alert-danger" role="alert">
                             {{error}}
                         </div>
                         {{/if}}
-
                         <div class="pt-1 mb-4">
-                            {{!-- <button class="btn btn-info btn-lg btn-block" type="button">Login</button>
-                            --}}
-                            <button id="sign-button" type="submit">Signup</button>
+                            <button id="sign-button" class="btn btn-primary signup_button" type="submit">Signup</button>
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
                 <div class="position-fixed">
@@ -89,7 +72,6 @@
                         style="object-fit: cover; object-position: left;">
                 </div>
             </div>
-            
         </div>
     </div>
 </section>
