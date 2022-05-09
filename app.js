@@ -41,30 +41,19 @@ app.listen(3000, () => {
 
 async function main() {
   try {
-    console.log("Create User 1")
+    console.log("Create playground")
     const user1 = await user.createUser("Sriptradha","Bhat","admin","sbhat8@stevens.edu","Admin@123","Admin@123");
-    console.log(user1)
+    console.log(play1)
     var user1_id = play1._id;
     console.log("\n")
   } catch (error) {
     console.log(error)
   }
-
   try {
     console.log("Create User 2")
     const user2 = await user.createUser("Sidd ","Maske","sidd052","smaske@stevens.edu","Sidd@123","Sidd@123");
     console.log(user2)
     var user2_id = play1._id;
-    console.log("\n")
-  } catch (error) {
-    console.log(error)
-  }
-
-  try {
-    console.log("Create User 3")
-    const user3 = await user.createUser("Bruce","Wayne","bruce150","bwayne@stevens.edu","iLikebats@11","iLikebats@11");
-    console.log(user3)
-    var user3_id = play1._id;
     console.log("\n")
   } catch (error) {
     console.log(error)
@@ -80,7 +69,6 @@ async function main() {
     console.log(error)
   }
 
-  
   try {
     console.log("Create playground")
     const play2 = await playground.createPlayground("Liberty State Park Playground", "Monday-Friday 6AM-10PM", ["parking", "locker room", "Gym"], "1212 acre", "535 Freedom Way, Jersey City, NJ 07305");
@@ -93,7 +81,7 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play3 = await playground.createPlayground("Newport Green Park", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "cafeteria"], "105m * 68m", "Green Park, 14th St, Jersey City, NJ 07310");
+    const play3 = await playground.createPlayground("Newport Green Park", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "Green Park, 14th St, Jersey City, NJ 07310");
     console.log(play1)
     var play3_id = play1._id;
     console.log("\n")
@@ -101,9 +89,9 @@ async function main() {
     console.log(error)
   }
 
-  try { 
+  try {
     console.log("Create playground")
-    const play4 = await playground.createPlayground("17th St Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["cafeteria", "locker room"], "105m * 68m", "1701 West St, Union City, NJ 07087");
+    const play4 = await playground.createPlayground("17th St Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", "1701 West St, Union City, NJ 07087");
     console.log(play1)
     var play4_id = play1._id;
     console.log("\n")
@@ -113,13 +101,13 @@ async function main() {
 
   try {
     console.log("Create playground")
-    const play5 = await playground.createPlayground("Weehawken Public Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "swimming pool", ], "105m * 68m", " NJ-495, Weehawken, NJ 07086");
+    const play5 = await playground.createPlayground("Weehawken Public Playground", "2022-02-03 Sunday 6:00 pm, 2022-02-03 Sunday 7:00 pm,2022-02-03 Sunday 8:00 pm,2022-02-04 Monday 6:00 pm", ["parking", "locker room"], "105m * 68m", " NJ-495, Weehawken, NJ 07086");
     console.log(play1)
     var play5_id = play1._id;
     console.log("\n")
   } catch (error) {
     console.log(error)
-  } 
+  }
 }
 
 main()
