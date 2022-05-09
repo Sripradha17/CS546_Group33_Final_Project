@@ -49,6 +49,20 @@ let exportedMethods = {
         play._id = play._id.toString();
         return play;
     },
+    async searchdata(searchData) {
+        searchData = validation.checkString(searchData)
+        const playgroundCollection = await playground();
+        const Userslist = await playgroundCollection.find({}).toArray();
+        const data = Userslist.filter(u => u.playgroundName.toLowerCase().includes(searchData.toLowerCase()))
+        if (data === null) throw 'No bands with that id';
+        console.log(data)
+        for (let i = 0; i < data.length; i++) {
+
+            data[i]._id = data[i]._id.toString();
+          }
+        // data._id = data._id.toString();
+        return data;
+    },
 
     async remove(pId) {
         pId = validation.checkId(pId)

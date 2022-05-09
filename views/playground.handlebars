@@ -10,6 +10,17 @@
 
 </section>
 {{/if}}
+<form method="POST" action="/search" class="new-post-form">
+  <div class="col-sm-6 text-black">
+    <div class="form-outline mb-4">
+      <input type="search" id="search" name="search" class="form-control form-control-lg" />
+    </div>
+    <div>
+      <button class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+
 
 <section class="bg-light pt-5 pb-5 shadow-sm">
   <div class="container">
@@ -17,7 +28,7 @@
       {{#if playgrounds.length}}
       {{#each playgrounds}}
       <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-        <div class="card">
+        <div class="card card-playground">
           <img src="{{this.image}}" class="card-img-top" alt="...">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{this.playgroundName}}</h5>

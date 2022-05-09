@@ -9,6 +9,24 @@ var path = require("path");
 const router = Router();
 
 
+router.post("/search", async (req, res) => {
+  try {
+
+    console.log("hhhhhh")
+    const searchdata = req.body['search'];
+    console.log(searchdata)
+    const playgrounds = await playground.searchdata(searchdata);
+
+    res.render("playground", {
+      playgrounds: playgrounds,
+      title: "Play More",
+      user: req.session.user,
+      userLoggedIn: true
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 //route on click or select of playground
 router.post("/playground", async (req, res) => {
   try {
