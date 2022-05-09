@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const validation = require('./validation');
 
 let exportedMethods = {
-    async createHost(hostId, playgroundId, playgroundName, schedule, amenities, playgroundSize, location, imageData) {
+    async createHost(hostId, playgroundId, playgroundName, schedule, amenities, playgroundSize, location, imageData,time,sportsname) {
 
         hostId = validation.checkId(hostId)
         playgroundId = validation.checkId(playgroundId)
@@ -13,6 +13,8 @@ let exportedMethods = {
         amenities = validation.checkArryString(amenities, 'Amenities')
         playgroundSize = validation.checkString(playgroundSize, 'Playground size');
         location = validation.checkString(location, 'location');
+        time = validation.checkString(time, 'time');
+        sportsname = validation.checkString(sportsname, 'sportsname');
 
         const hostDataCollection = await hostData();
 
@@ -25,7 +27,10 @@ let exportedMethods = {
             amenities: amenities,
             playgroundSize: playgroundSize,
             location: location,
-            image: imageData
+            image: imageData,
+            time: time,
+            sportsname: sportsname,
+            players:[]
         };
 
         const insertInfo = await hostDataCollection.insertOne(newHostData);
@@ -33,7 +38,7 @@ let exportedMethods = {
             throw 'Could not add playground';
 
         const newId = insertInfo.insertedId.toString();
-        
+
 
         return { userInserted: true };
     },
@@ -41,7 +46,7 @@ let exportedMethods = {
 
         username = validation.checkId(id);
 
-        const hostCollection = await hostData();    
+        const hostCollection = await hostData();
 
         const hostlist = await hostCollection.find({ playgroundId: id }).toArray();
         if (hostlist.length == 0) return true
@@ -52,10 +57,10 @@ let exportedMethods = {
     },
     async remove(pId) {
         pId = validation.checkId(pId)
-        
+
         const hostCollection = await hostData();
         const deletionInfo = await hostCollection.deleteOne({ _id: ObjectId(pId) });
-      
+
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete Band with id of ${pId}`;
         }
@@ -63,6 +68,18 @@ let exportedMethods = {
 
         return output;
 
+    }, async getAllHostData() {
+
+
+        const hostCollection = await hostData();
+        const hostlist = await hostCollection.find({}).toArray();
+        if (!hostlist) throw 'Could not get all host';
+
+        for (let i = 0; i < hostlist.length; i++) {
+
+            hostlist[i]._id = hostlist[i]._id.toString();
+        }
+        return hostlist;
     },
     async getAll(hostid) {
 
@@ -76,8 +93,7 @@ let exportedMethods = {
         }
 
         return hostlist;
-    }
-    ,
+    },
     async get(id) {
 
         id = validation.checkId(id)
@@ -91,7 +107,7 @@ let exportedMethods = {
     },
     async update(id, playgroundName, schedule, amenities, playgroundSize, location) {
         const hostCollection = await hostData();
-        
+
         id = validation.checkId(id)
         playgroundName = validation.checkString(playgroundName, 'Playground Name');
         schedule = validation.checkString(schedule, 'Schedule');

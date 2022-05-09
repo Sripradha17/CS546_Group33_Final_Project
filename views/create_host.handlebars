@@ -1,4 +1,3 @@
-
 <section id="playground-container" class="my-4">
     <div class="container">
         <div class="row">
@@ -7,6 +6,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
+                                
                                 <img src="{{playgrounds.image}}" class="img-fluid rounded" alt="...">
                             </div>
                             <div class="col-md-8 col-sm-12 align-self-end">
@@ -20,6 +20,23 @@
                                     {{/each}}
                                 </p>
                                 <form method="POST" action="/host/createHost/{{playgrounds._id}}" class="new-post-form">
+
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+
+                                            <input type="text" id="time" name="time"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form2Example18">Enter Time and Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" id="sportsname" name="sportsname"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form2Example18">Sports Name</label>
+
+                                        </div>
+                                    </div>
                                     <button id="delete-button" type="submit">Host</button>
                                 </form>
 

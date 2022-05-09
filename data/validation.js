@@ -23,7 +23,17 @@ module.exports = {
       throw `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`;
     return strVal;
   },
+  checkArryString(strArray, varName) {
+    if (!strArray || !Array.isArray(strArray))
+      throw `You must provide an array of ${varName}`;
+    if (strArray.length === 0) throw `You must supply at least one ${varName}`
+    for (i in strArray) {
 
+      if (typeof strArray[i] !== 'string' || strArray[i].trim().length === 0) throw `Please enter valid string in ${varName}`
+      strArray[i] = strArray[i].trim();
+    }
+    return strArray;
+  },
   checkArray(arr, varName) {
     if (!arr) throw `Error: You must supply a ${varName}!`;
     if (!Array.isArray(arr)) throw `Error: ${varName} must be a string!`;
