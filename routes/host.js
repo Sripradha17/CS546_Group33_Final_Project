@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         })
 
     } catch (e) {
-        res.sendStatus(500);
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -33,7 +33,7 @@ router.get('/hostlist', async (req, res) => {
         })
 
     } catch (e) {
-        res.sendStatus(500);
+        res.status(500).json({ error: error.message });
     }
 });
 
