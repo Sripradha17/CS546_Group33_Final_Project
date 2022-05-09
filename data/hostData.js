@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const validation = require('./validation');
 
 let exportedMethods = {
-    async createHost(hostId, playgroundId, playgroundName, schedule, amenities, playgroundSize, location, imageData,time,sportsname) {
+    async createHost(hostId, playgroundId, playgroundName, schedule, amenities, playgroundSize, location, imageData, time, sportsname) {
 
         hostId = validation.checkId(hostId)
         playgroundId = validation.checkId(playgroundId)
@@ -30,7 +30,7 @@ let exportedMethods = {
             image: imageData,
             time: time,
             sportsname: sportsname,
-            players:[]
+            players: []
         };
 
         const insertInfo = await hostDataCollection.insertOne(newHostData);
@@ -132,8 +132,28 @@ let exportedMethods = {
             throw "Error: Update failed";
         }
         return true
-    }
+    },
+    async updateplayers(hostId, userid, playersname) {
+        const hostCollection = await hostData();
 
+        hostId = validation.checkId(hostId)
+        userid = validation.checkId(userid)
+        playersname = validation.checkString(playersname, 'Players name');
+
+        const updated = {
+            players: [{ plyersname: playersname, playersId: userid }]
+        };
+        let parsedId = ObjectId(hostId);
+        const upPlay = await hostCollection.findOne({ _id: parsedId });
+        if (upPlay == null) {
+            throw "Error: No playground found with this id"
+        }
+        let updateInfo = await hostCollection.updateOne({ _id: parsedId }, { $set: updated });
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) {
+            throw "Error: Update failed";
+        }
+        return true
+    }
 };
 
 module.exports = exportedMethods;

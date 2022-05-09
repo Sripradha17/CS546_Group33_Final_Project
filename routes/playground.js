@@ -70,7 +70,7 @@ router.post('/playground/add', upload.single('image'), async (req, res) => {
     const location = validation.checkString(req.body.location, "Location");
     const amenities = validation.checkArray(req.body.amenities.split(" "), "Amenities");
 
-    const imageData = '../public/images/' + req.file.filename;
+    const imageData = 'http://localhost:3000/public/images/' + req.file.filename;
     console.log(imageData)
 
 

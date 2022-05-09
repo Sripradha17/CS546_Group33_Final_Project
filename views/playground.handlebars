@@ -5,6 +5,14 @@
         Playground</a></button>
   </div>
 
+  <div class="me-auto mb-2 mb-lg-0">
+    <form action="/filter" method="get" class="d-flex">
+      <input type="text" name="search" id="search-term" class="form-control"
+        value="{{#if searchTerm}}{{searchTerm}}{{/if}}">
+      <button type="submit" class="btn btn-light filter-search">Search</button>
+    </form>
+  </div>
+  
   <form method="POST" action="/admin/logout" class="new-post-form">
     <button id="delete-button" type="submit">Logout</button>
   </form>
