@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     try {
         res.render('quiz', { title: "Quiz" })
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/quiz');
     }
 });
 

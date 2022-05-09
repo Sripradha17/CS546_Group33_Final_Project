@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
       userLoggedIn: req.session.user ? true : false,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).redirect('/',{ error: e });
   }
 });
 
@@ -29,7 +29,7 @@ router.get("/home", async (req, res) => {
       userLoggedIn: req.session.user ? true : false,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).redirect('/home',{ error: error });
   }
 });
 

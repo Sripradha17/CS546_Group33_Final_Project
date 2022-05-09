@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         })
 
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/host',{ error: e });
     }
 });
 
@@ -32,7 +32,7 @@ router.get('/allhostlist', async (req, res) => {
         })
 
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/host/allhostlist',{ error: e });;
     }
 });
 
@@ -46,7 +46,7 @@ router.get('/allhostlist/:id', async (req, res) => {
             userLoggedIn: req.session.user ? true : false
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).redirect(`/host/allhostlist/${req.params.id}`,{ error: error.message });
     }
 });
 
@@ -62,7 +62,7 @@ router.get('/hostlist', async (req, res) => {
         })
 
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect(`/host/hostlist`,{error:e});
     }
 });
 
@@ -75,7 +75,7 @@ router.get("/playground/:id", async (req, res) => {
             userLoggedIn: req.session.user ? true : false
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).redirect(`/host/hostlist/${req.params.id}`,{ error: error.message });
     }
 });
 router.get("/hostlist/:id", async (req, res) => {
@@ -86,7 +86,7 @@ router.get("/hostlist/:id", async (req, res) => {
             userLoggedIn: req.session.user ? true : false
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).redirect(`/host/hostlist/${req.params.id}`,{ error: error.message });
     }
 });
 router.get("/hostlist/:id/edit", async (req, res) => {

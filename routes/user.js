@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
             res.render('login', { title: "Login" })
         }
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/user');
     }
 });
 
@@ -25,7 +25,7 @@ router.get('/login', async (req, res) => {
             res.render('login', { title: "Login" })
         }
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/user/login');
     }
 });
 router.get('/profile', async (req, res) => {
@@ -36,7 +36,7 @@ router.get('/profile', async (req, res) => {
             res.render('profile', { title: "Profile" })
         }
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/user/profile');
     }
 });
 
@@ -46,7 +46,7 @@ router.get('/private', async (req, res, next) => {
     try {
         res.render('private', { title: "PlayMore", userLoggedIn: true, user: req.session.user })
     } catch (error) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/user/private');
     }
 
 });
@@ -57,20 +57,12 @@ router.post('/login', async (req, res) => {
             res.redirect('/user/private')
         }
 
-
-
         let user = req.body.loginradio;
-        // let host = req.body['loginradio'];
-
-
 
         const username = req.body['username'];
         const password = req.body['password'];
 
         let userInfo;
-        // const hostcheck = false;
-        // const usercheck = false;
-        // const checkUser = "admin";
         if (user == "user") {
             userInfo = await showData.checkUser(username, password);
             checkUser = "user";
@@ -102,8 +94,6 @@ router.post('/login', async (req, res) => {
             }   
         }
 
-
-
     } catch (e) {
 
         res.status(400);
@@ -126,7 +116,6 @@ router.post('/signup', async (req, res) => {
 
         let user = req.body.loginradio;
 
-        console.log("=----" + user)
         let userInfo;
         if (user == "host") {
             userInfo = await hostData.createHostUser(firstname, lastname, username, email, password, confirm_password);
@@ -159,7 +148,7 @@ router.get('/signup', async (req, res) => {
             res.render('signup', { title: "Signup" })
         }
     } catch (e) {
-        res.status(400);
+        res.status(400).redirect('/user/signup');
     }
 
 });
@@ -170,7 +159,7 @@ router.get('/logout', function (req, res) {
         res.render('login', { title: "Login" })
 
     } catch (e) {
-        res.status(400);
+        res.status(400).redirect('/user/logout');
     }
 
 });

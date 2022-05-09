@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
         res.render('viewhostedgame', { title: "Hosted game list",hostgamelist })
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect("/join",{error: e});
     }
 });
 
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
 
         res.render('join', { title: "Hosted game list",hostgame })
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect(`/join/${req.params.id}`,{error: e});
     }
 });
 
@@ -32,11 +32,8 @@ router.post('/:id', async (req, res) => {
     try {
         const updatePlayground = await joinData.updatePlayers(req.params.id, players);
     } catch (e) {
-        if (e == "Error: No hosted game with this ID was found") {
-            res.status(404).json({ error: e });
-            return;
-        }
-        res.status(400).json({ error: e });
+       
+        res.status(400).redirect(`/join/${req.params.id}`,{error: e});
     }
 });
 

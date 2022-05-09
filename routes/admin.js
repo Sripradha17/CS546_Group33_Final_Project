@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     try {
         res.render('admin', { title: "Admin" })
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(500).redirect('/admin',{error: e});
     }
 });
 

@@ -13,7 +13,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  console.log("in comments")
     try {
       const commentList = await comments.getAllComments();
       res.status(200).json(commentList)
@@ -26,8 +25,7 @@ router.get("/", async (req, res) => {
 
 
 router.post('/:commentId/like', async (req, res) => {
-  console.log('asdasd', req.params)
-  console.log('In like')
+
   try {
     await comments.likeComment(req.params.commentId);
     return res.redirect("/playground/" + req.body.playgroundId);
@@ -37,8 +35,6 @@ router.post('/:commentId/like', async (req, res) => {
 })
 
 router.post('/:commentId/dislike', async (req, res) => {
-  console.log('asdasd', req.params)
-  console.log('In like')
   try {
     await comments.dislikeComment(req.params.commentId);
     return res.redirect("/playground/" + req.body.playgroundId);
@@ -49,13 +45,7 @@ router.post('/:commentId/dislike', async (req, res) => {
 
 
 router.post('/:playgroundId/add', async (req, res) => {
-  // console.log(req.params)
-  //   if (!req.params.playgroundId || !req.params.userId) {
-  //     res.status(400).json({ error: 'You must Supply an ID to add comment to!' });
-  //     return;
-	// }
-  console.log(req.session.userID.userId+"--"+req.params.playgroundId)
-	const commentVal = req.body.comment;
+ 	const commentVal = req.body.comment;
     try {
       addCommentOnReview = await comments.addComment(req.session.userID.userId, req.params.playgroundId, commentVal)
       if(addCommentOnReview){
@@ -64,7 +54,7 @@ router.post('/:playgroundId/add', async (req, res) => {
         return res.status(404).send();
       }
     } catch (e) {
-      res.status(500).json({ error: e });
+      res.status(500).redirect("/playground/" + req.params.playgroundId,{ error: e });
     }
 });
 

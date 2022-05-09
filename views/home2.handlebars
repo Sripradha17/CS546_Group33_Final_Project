@@ -18,13 +18,7 @@
               which are already existing. The purpose of application is to allow
               users to find nearby events / matches which they would like to
               join. If they have a location, they can host the game to play.</p>
-            {{!
-            <div id="home2">
-              <a href="/admin" class="btn btn-primary" aria-disabled="true">Admin</a>
 
-              <a href="/login" class="btn btn-primary" aria-disabled="true">Login</a>
-
-            </div> }}
             <div class="home_buttons">
               <ul class="home_button_ul">
                 <a href="/admin" class="btn btn-primary home_button_a" aria-disabled="true">Admin</a>
@@ -34,23 +28,14 @@
                   aria-disabled="true">Login</a></ul>
             </div>
             <div class="pt-1 mb-4">
-              {{! <button class="btn btn-info btn-lg btn-block" type="button">Login</button> }}
-              {{! <button id="login-button" class="btn btn-primary" onclick="displayRadioValue()"
-                type="submit">Login</button> }}
             </div>
-
-            {{! <p>Don't have an account? <a href="/user/signup" class="link-info">Register here</a></p> }}
 
             {{#if error}}
             <div class="alert alert-danger" role="alert">
               {{error}}
             </div>
             {{/if}}
-            {{!-- <div class="error-container">
-              {{#if error}}
-              <h4>{{error}}</h4>
-              {{/if}}
-            </div> --}}
+           
           </form>
 
         </div>

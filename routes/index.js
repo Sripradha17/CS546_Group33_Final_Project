@@ -31,21 +31,15 @@ const constructorMethod = (app) => {
   app.get("/", (req, res) => {
     let userLoggedIn = false;
     let userId = req.session.user;
-    // if(!!userId) {
-    //   res.redirect('/user/private')
-    //   userLoggedIn = false;
-    // } else {
-    //   res.render('login', { title: "Login" ,userLoggedIn: true})
-
-    // }
-
+    
     res.status(200).render("home", { userLoggedIn: userLoggedIn });
   });
-  // app.use('/', userRoutes);
 
-  // app.use("*", (req, res) => {
-  //   res.redirect('/user/private')
-  // });
+  app.use('*', (req, res) => {
+    res.sendStatus(404);
+    
+    // res.redirect("/");
+  });
 
 };
 

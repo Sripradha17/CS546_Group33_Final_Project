@@ -42,10 +42,9 @@ let exportedMethods = {
 
         const insertInfo = await usersCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not create host user';
 
         const newId = insertInfo.insertedId.toString();
-        // const data = await this.get(newId);
 
         return { userInserted: true };
     },
@@ -82,7 +81,7 @@ let exportedMethods = {
 
         const insertInfo = await hostCollection.insertOne(newUserdata);
         if (!insertInfo.acknowledged || !insertInfo.insertedId)
-            throw 'Could not add band';
+            throw 'Could not create Host';
 
         const newId = insertInfo.insertedId.toString();
         return { userInserted: true };
@@ -106,7 +105,7 @@ let exportedMethods = {
 
         const hostCollection = await host();
         const hostdata = await hostCollection.findOne({ _id: ObjectId(id) });
-        if (hostdata === null) throw 'No bands with that id';
+        if (hostdata === null) throw 'No host with that id';
 
         hostdata._id = hostdata._id.toString();
         return hostdata;
@@ -119,7 +118,7 @@ let exportedMethods = {
         const deletionInfo = await hostCollection.deleteOne({ _id: ObjectId(id) });
 
         if (deletionInfo.deletedCount === 0) {
-            throw `Could not delete Band with id of ${id}`;
+            throw `Could not delete Host with id of ${id}`;
         }
         const output = hostdata.name + " has been successfully deleted!";
 
@@ -143,7 +142,7 @@ let exportedMethods = {
             { $set: updatedhosts }
         );
         if (updatedInfo.modifiedCount === 0) {
-            throw 'could not update bands successfully';
+            throw 'could not update host data successfully';
         }
 
         return await this.get(id);
@@ -164,7 +163,7 @@ let exportedMethods = {
         pId = validation.checkId(pId)
         const playgroundCollection = await playground();
         const playgroundlist = await playgroundCollection.findOne({ _id: ObjectId(pId) });
-        if (playgroundlist === null) throw 'No bands with that id';
+        if (playgroundlist === null) throw 'No Playground with that id';
         playgroundlist._id = playgroundlist._id.toString();
         return playgroundlist;
     }
