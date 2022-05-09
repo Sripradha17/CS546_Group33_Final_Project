@@ -6,11 +6,24 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const playgrounds = await search.filterPlaygrounds();
-    const hostedGames = await Host.getHostedGames();
 
     res.render("home2", {
       playgrounds: playgrounds,
-      sportWatchingEvents: hostedGames,
+      title: "Play More",
+      user: req.session.user,
+      userLoggedIn: req.session.user ? true : false,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/home", async (req, res) => {
+  try {
+    const playgrounds = await search.filterPlaygrounds();
+
+    res.render("home", {
+      playgrounds: playgrounds,
       title: "Play More",
       user: req.session.user,
       userLoggedIn: req.session.user ? true : false,

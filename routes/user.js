@@ -74,33 +74,36 @@ router.post('/login', async (req, res) => {
         if (user == "user") {
             userInfo = await showData.checkUser(username, password);
             checkUser = "user";
-            // usercheck = true
-            // hostcheck = false
-            // status = false
+
+            if (userInfo.authenticated) {
+
+                req.session.user = { username: username };
+                req.session.userID = { userId: userInfo.userId };
+
+                res.redirect('/home')
+            } else {
+                res.status(400);
+                res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
+            }
         }
         else {
-            // checkUser = "host";
-            // usercheck = false
-            // hostcheck = true
-            // status = false
+            
             userInfo = await hostData.checkUser(username, password);
+
+            if (userInfo.authenticated) {
+
+                req.session.user = { username: username };
+                req.session.userID = { userId: userInfo.userId };
+
+                res.redirect('/host')
+            } else {
+                res.status(400);
+                res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
+            }   
         }
 
-        console.log(userInfo.userId)
-        if (userInfo.authenticated) {
 
-            req.session.user = { username: username };
-            req.session.userID = { userId: userInfo.userId };
-            if (user.username == "admin") {
-                res.redirect('/playground')
-            }
 
-            // req.session.status = { data:  checkUser};
-            res.redirect('/user/private')
-        } else {
-            res.status(400);
-            res.render('login', { title: "Error", error: "Invalid Username and/or Password" })
-        }
     } catch (e) {
 
         res.status(400);

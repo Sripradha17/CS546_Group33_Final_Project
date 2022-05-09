@@ -21,6 +21,35 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/allhostlist', async (req, res) => {
+
+    try {
+
+        const hostingData = await createHostData.getAllHostData();
+        res.render('allHostList', {
+            title: "Hostlist", Host: hostingData,
+            userLoggedIn: true
+        })
+
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
+
+
+router.get('/allhostlist/:id', async (req, res) => {
+
+    try {
+        const hostData = await createHostData.get(req.params.id);
+        res.render("joinHostData", {
+            hostData, title: hostData.playgroundName, user: req.session.user,
+            userLoggedIn: req.session.user ? true : false
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.get('/hostlist', async (req, res) => {
 
     try {
@@ -40,6 +69,7 @@ router.get('/hostlist', async (req, res) => {
 router.get("/playground/:id", async (req, res) => {
     try {
         const playgrounds = await hostData.getPlaygroundById(req.params.id);
+        
         res.render("create_host", {
             playgrounds, title: playgrounds.playgroundName, user: req.session.user,
             userLoggedIn: req.session.user ? true : false
@@ -120,7 +150,11 @@ router.post('/createHost/:id', async (req, res) => {
 
         const playgrounds = await hostData.getPlaygroundById(req.params.id);
 
-        const respData = await createHostData.createHost(userid.userId, req.params.id, playgrounds.playgroundName, playgrounds.schedule, playgrounds.amenities, playgrounds.playgroundSize, playgrounds.location, playgrounds.imageData);
+        
+        const time = req.body['time'];
+        const sportsname = req.body['sportsname'];
+
+        const respData = await createHostData.createHost(userid.userId, req.params.id, playgrounds.playgroundName, playgrounds.schedule, playgrounds.amenities, playgrounds.playgroundSize, playgrounds.location, playgrounds.imageData,time,sportsname);
 
         res.render('create_host', {
             success: true, playgrounds, title: playgrounds.playgroundName, user: req.session.user,

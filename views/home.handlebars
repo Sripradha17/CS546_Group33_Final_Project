@@ -1,13 +1,17 @@
-{{!-- {{> playgroundSearch}} --}}
+{{> userheader}}
 
 <section id="playgrounds" class="my-4">
   <div class="container">
+
+    <a href="/host/allhostlist" class="btn btn-primary" aria-disabled="true">Host Data</a>
     <div class="row">
       <div class="col-md-12">
         <h1 class="text-center">Playgrounds</h1>
       </div>
     </div>
-    
+
+
+
     <div class="row">
       {{#if playgrounds.length}}
       {{#each playgrounds}}
@@ -17,7 +21,8 @@
             <img src="{{image}}" class="card-img-top" alt="...">
             <h5 class="card-title">{{this.playgroundName}}</h5>
             <p class="card-text">{{this.location}}</p>
-            <a href="{{#if ../userLoggedIn}}/playground/{{this._id}}{{else}}/user/login{{/if}}" class="btn btn-primary">View</a>
+            <a href="{{#if ../userLoggedIn}}/playground/{{this._id}}{{else}}/user/login{{/if}}"
+              class="btn btn-primary">View</a>
           </div>
         </div>
       </div>
