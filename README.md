@@ -32,7 +32,8 @@ node seed
 ```bash
 npm start
 ```
-
+Admin Login:
+username: admin; password: Admin@123
 The result will be available at [http://localhost:3000](http://localhost:3000)
 
 
